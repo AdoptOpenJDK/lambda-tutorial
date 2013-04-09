@@ -1,6 +1,9 @@
-package org.adoptopenjdk.lambda.tutorial.exercise1;
+package org.adoptopenjdk.lambda.tutorial;
 
 
+import org.adoptopenjdk.lambda.tutorial.exercise1.Color;
+import org.adoptopenjdk.lambda.tutorial.exercise1.Shape;
+import org.adoptopenjdk.lambda.tutorial.exercise1.Shapes;
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
@@ -9,15 +12,15 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.adoptopenjdk.lambda.tutorial.exercise1.Color.RED;
+import static org.adoptopenjdk.lambda.tutorial.exercise1.Color.BLACK;
 import static org.adoptopenjdk.lambda.tutorial.exercise1.Color.BLUE;
 import static org.adoptopenjdk.lambda.tutorial.exercise1.Color.GREEN;
-import static org.adoptopenjdk.lambda.tutorial.exercise1.Color.BLACK;
+import static org.adoptopenjdk.lambda.tutorial.exercise1.Color.RED;
 import static org.adoptopenjdk.lambda.tutorial.exercise1.Color.YELLOW;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.equalTo;
 
 
 /**
@@ -60,7 +63,7 @@ import static org.hamcrest.Matchers.equalTo;
  * @author Graham Allan grundlefleck at gmail dot com
  */
 @SuppressWarnings("unchecked")
-public class ShapesTest {
+public class Exercise_1_Test {
 
     /**
      * Use forEach to change the color of every shape to RED.

@@ -3,7 +3,7 @@ package org.adoptopenjdk.lambda.tutorial.exercise1;
 import java.util.List;
 
 /**
- * A collection of functions which should be filled out to make ShapesTest pass.
+ * A collection of functions which should be filled out to make tests pass.
  *
  * Each method should use a single call to shapes.forEach.
  *
