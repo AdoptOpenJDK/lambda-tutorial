@@ -1,4 +1,4 @@
-package org.adoptajsr.lambda.tutorial.exercise1;
+package org.adoptopenjdk.lambda.tutorial.exercise1;
 
 
 import org.hamcrest.FeatureMatcher;
@@ -19,11 +19,34 @@ import static org.hamcrest.Matchers.contains;
 
 
 /**
+ * Exercise 1 - Internal vs External iteration.
+ *
+ * As described in Brian Goetz's State of the Lambda - Libraries Edition[0], Java's collection classes provide a way for
+ * clients to enumerate the members of a collection. Currently, this is iteration is "External" - that is, the
+ * collection can be iterated in sequence, by the client code.
+ *
+ * This refers to the trusty "for loop":
+ *
+ *   for (Shape s: shapes) {
+ *       s.setColor(RED)
+ *   }
+ *
+ * JDK 8, with lambdas and an updated Collections library, will allow "Internal" iteration. In this case, the collection
+ * receives some code, and decides how to apply that to its elements. This has several benefits, including:
+ *  - allowing the collection to decide how to handle executing given code, including opening the door to parallelism and laziness
+ *  - leads to a style where operations can be pipelined, into a more fluent, readable style.
+ *
+ *  Internal iteration, using lambda expression syntax, turns the above for loop into:
+ *
+ *  shapes.forEach(s -> s.setColor(RED))
+ *
+ *
+ * [0] http://cr.openjdk.java.net/~briangoetz/lambda/sotc3.html
+ *
  * Lambda Tutorial -- Adopt Open JDK
- *
- *
  * @author Graham Allan grundlefleck at gmail dot com
  */
+@SuppressWarnings("unchecked")
 public class ShapesTest {
 
     @Test

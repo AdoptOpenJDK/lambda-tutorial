@@ -1,4 +1,6 @@
-package org.adoptajsr.lambda.tutorial.exercise1;
+package org.adoptopenjdk.lambda.tutorial.exercise1;
+
+import org.adoptopenjdk.lambda.tutorial.exercise1.Shape;
 
 import java.awt.Color;
 import java.util.Arrays;

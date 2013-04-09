@@ -1,8 +1,14 @@
-package org.adoptajsr.lambda.tutorial.setupcheck;
+package org.adoptopenjdk.lambda.setupcheck;
 
 import java.util.List;
 import static java.util.Arrays.asList;
 
+/**
+ *
+ *
+ * Lambda Tutorial -- Adopt Open JDK
+ * @author Graham Allan grundlefleck at gmail dot com
+ */
 public class ConfigureYourLambdaBuildOfJdk {
 
     public static void main(String... args) {

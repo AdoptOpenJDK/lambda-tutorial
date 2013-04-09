@@ -1,4 +1,4 @@
-package org.adoptajsr.lambda.tutorial.exercise1;
+package org.adoptopenjdk.lambda.tutorial.exercise1;
 
 import java.awt.Color;
 
