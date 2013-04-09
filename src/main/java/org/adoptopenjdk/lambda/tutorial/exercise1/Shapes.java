@@ -1,38 +1,26 @@
 package org.adoptopenjdk.lambda.tutorial.exercise1;
 
-import org.adoptopenjdk.lambda.tutorial.exercise1.Shape;
-
-import java.awt.Color;
-import java.util.Arrays;
 import java.util.List;
 
-import static java.awt.Color.BLUE;
-
 /**
+ * A collection of functions which should be filled out to make ShapesTest pass.
  *
+ * Each method should use a single call to shapes.forEach.
  *
  * Lambda Tutorial -- Adopt Open JDK
  * @author Graham Allan grundlefleck at gmail dot com
  */
 public class Shapes {
 
-    private final List<Shape> shapes;
-
-    public Shapes(Shape... shapes) {
-        this.shapes = Arrays.asList(shapes);
-    }
-
-    public List<Shape> underlyingList() {
-        return shapes;
-    }
-
-    public void colorAll(Color newColor) {
+    public static void colorAll(List<Shape> shapes, Color newColor) {
         // [your code here]
     }
 
-    public void colorAllBlueShapes(Color newColor) {
+    public static void makeStringOfAllColors(List<Shape> shapes, StringBuilder stringBuilder) {
         // [your code here]
     }
 
-
+    public static void changeColorAndMakeStringOfOldColors(List<Shape> shapes, Color newColor, StringBuilder stringBuilder) {
+        // [your code here]
+    }
 }

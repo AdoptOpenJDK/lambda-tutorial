@@ -6,16 +6,18 @@ import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
-import java.awt.Color;
+import java.util.Arrays;
+import java.util.List;
 
-import static java.awt.Color.BLACK;
-import static java.awt.Color.BLUE;
-import static java.awt.Color.RED;
-import static java.awt.Color.YELLOW;
+import static org.adoptopenjdk.lambda.tutorial.exercise1.Color.RED;
+import static org.adoptopenjdk.lambda.tutorial.exercise1.Color.BLUE;
+import static org.adoptopenjdk.lambda.tutorial.exercise1.Color.GREEN;
+import static org.adoptopenjdk.lambda.tutorial.exercise1.Color.BLACK;
+import static org.adoptopenjdk.lambda.tutorial.exercise1.Color.YELLOW;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.equalTo;
 
 
 /**
@@ -36,12 +38,23 @@ import static org.hamcrest.Matchers.contains;
  *  - allowing the collection to decide how to handle executing given code, including opening the door to parallelism and laziness
  *  - leads to a style where operations can be pipelined, into a more fluent, readable style.
  *
- *  Internal iteration, using lambda expression syntax, turns the above for loop into:
+ * Internal iteration, using lambda expression syntax, turns the above for loop into:
  *
  *  shapes.forEach(s -> s.setColor(RED))
  *
+ * Where "s -> s.setColor(RED)" is a lambda expression, which is passed into forEach, and invoked inside forEach. Lambda
+ * expressions have a type, called a "Functional Interface". In this case the lambda is of type Consumer. Consumer declares
+ * a single method, "void accept(T t)". This is all hidden by the Java compiler, and unless you extract the lambda to a
+ * variable, or write a method which accepts a lambda, you don't really need to know about it.
+ *
+ * The below tests can be made to pass using for loops. Try to make them pass without using a for loop.
  *
  * [0] http://cr.openjdk.java.net/~briangoetz/lambda/sotc3.html
+ *
+ * @see java.lang.Iterable#forEach
+ * @see Shape
+ * @see Shapes
+ * @see Color
  *
  * Lambda Tutorial -- Adopt Open JDK
  * @author Graham Allan grundlefleck at gmail dot com
@@ -49,34 +62,78 @@ import static org.hamcrest.Matchers.contains;
 @SuppressWarnings("unchecked")
 public class ShapesTest {
 
+    /**
+     * Use forEach to change the color of every shape to RED.
+     *
+     * Change the 'method under test' to make the test pass.
+     *
+     * @see Shapes#colorAll(java.util.List, Color)
+     *
+     * @see Iterable#forEach
+     * @see Shape#setColor(Color)
+     */
     @Test
     public void changeColorOfAllShapes() {
-        Shape first = new Shape(RED);
-        Shape second = new Shape(BLACK);
-        Shape third = new Shape(YELLOW);
+        List<Shape> myShapes = Arrays.asList(new Shape(BLUE), new Shape(BLACK), new Shape(YELLOW));
 
-        Shapes allMyShapes = new Shapes(first, second, third);
+        // method under test
+        Shapes.colorAll(myShapes, RED);
 
-        allMyShapes.colorAll(RED);
-
-        assertThat(allMyShapes.underlyingList(), hasSize(3));
-        assertThat(allMyShapes.underlyingList(), everyItem(hasColor(RED)));
+        assertThat(myShapes, hasSize(3));
+        assertThat(myShapes, everyItem(hasColor(RED)));
     }
 
+    /**
+     * Use forEach, with the given StringBuilder, to assemble a String which represents every Shape in the given list.
+     *
+     * Change the 'method under test' to make the test pass.
+     *
+     * The String should be a concatenation of each Shape's toString.
+     *
+     * @see Shapes#makeStringOfAllColors(java.util.List, StringBuilder)
+     *
+     * @see Shape#toString()
+     * @see StringBuilder#append(String)
+     * @see Iterable#forEach
+     */
     @Test
-    public void changeColorOfAllBlueShapes() {
-        Shape first = new Shape(BLUE);
-        Shape second = new Shape(BLACK);
-        Shape third = new Shape(YELLOW);
+    public void buildStringRepresentingAllShapes() {
+        List<Shape> allMyShapes = Arrays.asList(new Shape(RED), new Shape(BLACK), new Shape(YELLOW));
+        StringBuilder builder = new StringBuilder();
 
-        Shapes allMyShapes = new Shapes(first, second, third);
+        // method under test
+        Shapes.makeStringOfAllColors(allMyShapes, builder);
 
-        allMyShapes.colorAllBlueShapes(RED);
-
-        assertThat(allMyShapes.underlyingList(), hasSize(3));
-        assertThat(allMyShapes.underlyingList(), contains(hasColor(RED), hasColor(BLACK), hasColor(YELLOW)));
+        assertThat(builder.toString(), equalTo("[a RED shape][a BLACK shape][a YELLOW shape]"));
     }
 
+
+    /**
+     * Use forEach to change the color, and build a string showing the old colors of each shape.
+     *
+     * Try to perform both actions using a single call to forEach.
+     *
+     * @see Shapes#changeColorAndMakeStringOfOldColors
+     *
+     * @see Shape#getColor()
+     * @see Color#name()
+     * @see StringBuilder#append(String)
+     */
+    @Test
+    public void changeColorOfAllShapes_AND_buildStringShowingAllTheOldColors() {
+        List<Shape> myShapes = Arrays.asList(new Shape(BLUE), new Shape(BLACK), new Shape(YELLOW));
+        StringBuilder builder = new StringBuilder();
+
+        Shapes.changeColorAndMakeStringOfOldColors(myShapes, GREEN, builder);
+
+        assertThat(myShapes, hasSize(3));
+        assertThat(myShapes, everyItem(hasColor(GREEN)));
+        assertThat(builder.toString(), equalTo("[BLUE][BLACK][YELLOW]"));
+    }
+
+
+
+    // Test helpers
 
     private static Matcher<Shape> hasColor(Color color) {
         return new FeatureMatcher<Shape, Color>(Matchers.is(color), "has color", "color") {
