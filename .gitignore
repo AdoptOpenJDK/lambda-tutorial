@@ -1,6 +1,14 @@
+
+# IntelliJ
 *iml
 *ipr
 *iws
+
+# Eclipse
 .classpath
 .project
+.externalToolBuilders
+.settings
+
+# Maven
 target
