@@ -16,6 +16,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.hasSize;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -106,11 +107,10 @@ public class Exercise_2_Test {
      */
     @Test
     public void getAllPersonsEligibleToVote() {
-        Person tom = new Person("Tom", 24);
-        Person dick = new Person("Dick", 75);
-        Person harry = new Person("Harry", 17);
-
-        List<Person> potentialVoters = Arrays.asList(tom, dick, harry);
+        List<Person> potentialVoters = new ArrayList<>();
+        potentialVoters.add(new Person("Tom", 24));
+        potentialVoters.add(new Person("Dick", 75));
+        potentialVoters.add(new Person("Harry", 17));
 
         int legalAgeOfVoting = 18;
         List<Person> eligibleVoters = VotingRules.eligibleVoters(potentialVoters, legalAgeOfVoting);
