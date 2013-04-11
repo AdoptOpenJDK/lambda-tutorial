@@ -13,14 +13,14 @@ import java.util.List;
 public class Shapes {
 
     public static void colorAll(List<Shape> shapes, Color newColor) {
-        // [your code here]
+        shapes.forEach(s -> s.setColor(newColor));
     }
 
     public static void makeStringOfAllColors(List<Shape> shapes, StringBuilder stringBuilder) {
-        // [your code here]
+        shapes.forEach(s -> stringBuilder.append(s));
     }
 
     public static void changeColorAndMakeStringOfOldColors(List<Shape> shapes, Color newColor, StringBuilder stringBuilder) {
-        // [your code here]
+        shapes.forEach(s -> { stringBuilder.append("[" + s.getColor() + "]"); s.setColor(newColor); });
     }
 }
