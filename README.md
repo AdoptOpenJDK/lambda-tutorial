@@ -8,8 +8,14 @@ To follow the exercises:
  - ensure you have a correctly configured, lambda-enabled Java build
    - Maven can help generate configuration for your favourite IDE, though you will likely have to set the JDK manually
    - ensure your cloned project, particularly the class `ConfigureYourLambdaBuildOfJdk` compiles and runs correctly
- - navigate to the first exercise, `Exercise_1_Test` (tests are in src/test/java, in the package org.adoptopenjdk.lambda.tutorial)
+ - navigate to the first exercise, `Exercise_1_Test` (tests are in `src/test/java`, in the package `org.adoptopenjdk.lambda.tutorial`)
  - read background information in the JavaDoc, and follow instructions, making the test pass
+ - to find solutions check out different branches of the project. Two flavours of solutions are available: what it might have looked like before JDK 8, and what it might look like after JDK 8. Those are in branches `solutions-prejava8` and `solutions-postjava8` respectively.
+
+
+### Exercises
+
+ 1. Internal vs External Iteration (the forEach method)
 
 [More to come]
 
