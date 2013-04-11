@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 
 public class VotingRules {
     public static List<Person> eligibleVoters(List<Person> potentialVoters, int legalAgeOfVoting) {
-        // [your code here]
 
-
-        return Collections.emptyList();
+        return potentialVoters.stream()
+            .filter(p -> p.age >= legalAgeOfVoting)
+            .collect(Collectors.toList());
     }
 }
