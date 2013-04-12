@@ -3,6 +3,7 @@ package org.adoptopenjdk.lambda.tutorial.exercise2;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Lambda Tutorial -- Adopt Open JDK
@@ -26,8 +27,8 @@ public enum ElectoralDistrict {
     }
 
     public static Set<RegisteredVoter> votersIn(ElectoralDistrict district, Collection<RegisteredVoter> voters) {
-        // [your code here]
-
-        return Collections.emptySet();
+        return voters.stream()
+                .filter(v -> v.electorId.startsWith(district.prefix))
+                .collect(Collectors.toSet());
     }
 }
