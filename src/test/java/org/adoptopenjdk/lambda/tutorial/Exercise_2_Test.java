@@ -1,28 +1,28 @@
 package org.adoptopenjdk.lambda.tutorial;
 
-import org.adoptopenjdk.lambda.tutorial.exercise1.Color;
-import org.adoptopenjdk.lambda.tutorial.exercise1.Shape;
+import org.adoptopenjdk.lambda.tutorial.exercise2.ElectoralDistrict;
 import org.adoptopenjdk.lambda.tutorial.exercise2.Person;
+import org.adoptopenjdk.lambda.tutorial.exercise2.RegisteredVoter;
 import org.adoptopenjdk.lambda.tutorial.exercise2.VotingRules;
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.everyItem;
-import static org.hamcrest.Matchers.hasSize;
-
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.Arrays.asList;
+import static org.adoptopenjdk.lambda.tutorial.exercise2.ElectoralDistrict.HACKNEY;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.hasSize;
 
 /**
  * Exercise 2 - Filtering and Collecting
@@ -100,17 +100,14 @@ import java.util.stream.Stream;
 public class Exercise_2_Test {
 
     /**
-     * Use List.filter() to produce a list containing only those Persons eligible to vote.
+     * Use Stream.filter() to produce a list containing only those Persons eligible to vote.
      *
-     *
+     * @see Person#age
      */
     @Test
     public void getAllPersonsEligibleToVote() {
-        Person tom = new Person("Tom", 24);
-        Person dick = new Person("Dick", 75);
-        Person harry = new Person("Harry", 17);
-
-        List<Person> potentialVoters = Arrays.asList(tom, dick, harry);
+        List<Person> potentialVoters =
+                new ArrayList<>(asList(new Person("Tom", 24), new Person("Dick", 75), new Person("Harry", 17)));
 
         int legalAgeOfVoting = 18;
         List<Person> eligibleVoters = VotingRules.eligibleVoters(potentialVoters, legalAgeOfVoting);
@@ -123,10 +120,55 @@ public class Exercise_2_Test {
         assertThat(potentialVoters, containsInAnyOrder(aPersonNamed("Tom"), aPersonNamed("Dick"), aPersonNamed("Harry")));
     }
 
+    /**
+     * Uses Stream.filter() to find all the voters residing in a given district.
+     *
+     * The resulting collection is to be used for quick lookups to find if a given
+     * voter resides in a district. Performance measurements indicate we should
+     * prefer the result to be a java.util.Set. Use Stream.collect() to produce a
+     * Set containing the result, rather than a List.
+     *
+     * HINT: sometimes type inference is "not there yet", help out the compiler
+     * with explicit generic arguments if you have to.
+     *
+     * @see Stream#collect(java.util.stream.Collector)
+     * @see java.util.stream.Collectors#toSet()
+     *
+     * @see ElectoralDistrict#prefix
+     * @see RegisteredVoter#electorId
+     */
+    @Test public void setOfVotersInDistrict() {
+        List<RegisteredVoter> allVoters = new ArrayList<>(asList(
+            new RegisteredVoter("CR2345"),
+            new RegisteredVoter("HA7654"),
+            new RegisteredVoter("HA2213"),
+            new RegisteredVoter("BA9987"),
+            new RegisteredVoter("CR6203"),
+            new RegisteredVoter("ED9876")
+            // ... and many more
+        ));
+
+        Set<RegisteredVoter> votersInHackney = ElectoralDistrict.votersIn(HACKNEY, allVoters);
+
+        assertThat(votersInHackney, hasSize(2));
+        assertThat(votersInHackney, containsInAnyOrder(aVoterWithId("HA7654"), aVoterWithId("HA2213")));
+    }
+
+
+    // Test helpers
+
     private static Matcher<Person> aPersonNamed(String name) {
         return new FeatureMatcher<Person, String>(Matchers.is(name), "is a person", "name") {
             @Override protected String featureValueOf(Person person) {
                 return person.name;
+            }
+        };
+    }
+
+    private static Matcher<RegisteredVoter> aVoterWithId(String name) {
+        return new FeatureMatcher<RegisteredVoter, String>(Matchers.is(name), "is a voter", "electorId") {
+            @Override protected String featureValueOf(RegisteredVoter voter) {
+                return voter.electorId;
             }
         };
     }
