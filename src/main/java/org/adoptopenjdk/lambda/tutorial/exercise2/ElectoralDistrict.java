@@ -2,6 +2,7 @@ package org.adoptopenjdk.lambda.tutorial.exercise2;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -26,8 +27,13 @@ public enum ElectoralDistrict {
     }
 
     public static Set<RegisteredVoter> votersIn(ElectoralDistrict district, Collection<RegisteredVoter> voters) {
-        // [your code here]
+        Set<RegisteredVoter> votersInDistrict = new HashSet<>();
+        for (RegisteredVoter v: voters) {
+            if (v.electorId.startsWith(district.prefix)) {
+                votersInDistrict.add(v);
+            }
+        }
 
-        return Collections.emptySet();
+        return votersInDistrict;
     }
 }
