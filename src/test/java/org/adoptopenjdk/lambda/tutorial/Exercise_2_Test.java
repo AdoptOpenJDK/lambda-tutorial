@@ -1,6 +1,8 @@
 package org.adoptopenjdk.lambda.tutorial;
 
+import org.adoptopenjdk.lambda.tutorial.exercise2.Ballot;
 import org.adoptopenjdk.lambda.tutorial.exercise2.ElectoralDistrict;
+import org.adoptopenjdk.lambda.tutorial.exercise2.Party;
 import org.adoptopenjdk.lambda.tutorial.exercise2.Person;
 import org.adoptopenjdk.lambda.tutorial.exercise2.RegisteredVoter;
 import org.adoptopenjdk.lambda.tutorial.exercise2.VotingRules;
@@ -11,18 +13,28 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
+import static java.util.Arrays.binarySearch;
 import static org.adoptopenjdk.lambda.tutorial.exercise2.ElectoralDistrict.HACKNEY;
+import static org.adoptopenjdk.lambda.tutorial.exercise2.ElectoralDistrict.votersIn;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 
 /**
  * Exercise 2 - Filtering and Collecting
@@ -154,22 +166,75 @@ public class Exercise_2_Test {
         assertThat(votersInHackney, containsInAnyOrder(aVoterWithId("HA7654"), aVoterWithId("HA2213")));
     }
 
+    @Test public void removeAllSpoiledBallots() {
+        Set<Ballot> votes = new HashSet<>(asList(
+                Ballot.voteFor(Party.LABOUR),
+                Ballot.voteFor(Party.CONSERVATIVE),
+                Ballot.spoiled(),
+                Ballot.voteFor(Party.MONSTER_RAVING_LOONY_PARTY),
+                Ballot.voteFor(Party.LIBERAL_DEMOCRATS),
+                Ballot.spoiled(),
+                Ballot.voteFor(Party.GREEN_PARTY),
+                Ballot.voteFor(Party.GREEN_PARTY)
+                // ... and many more
+        ));
+
+        Set<Ballot> unspoiledBallots = ElectoralDistrict.unspoiledBallots(votes);
+
+        assertThat(unspoiledBallots, hasSize(6));
+        assertThat(unspoiledBallots, everyItem(is(not(spoiled()))));
+    }
+
+    /**
+     * Ensure that the Set returned cannot be modified by callers by wrapping the result
+     * in Collections.unmodifiableSet().
+     *
+     * The Streams API does not provide a way to wrap the final result, as one of its operations. So just wrap the
+     * result in an unmodifiableSet yourself. Sometimes it's just as important to know what an API _doesn't_ do.
+     *
+     * @see Stream#collect(java.util.stream.Collector)
+     * @see java.util.stream.Collectors#toSet()
+     * @see Collections#unmodifiableSet(java.util.Set)
+     */
+    @Test public void setOfVotersInDistrictInUnmodifiableSet() throws ClassNotFoundException {
+        List<RegisteredVoter> allVoters = new ArrayList<>(asList(
+            new RegisteredVoter("CR2345"),
+            new RegisteredVoter("HA7654"),
+            new RegisteredVoter("HA2213"),
+            new RegisteredVoter("BA9987"),
+            new RegisteredVoter("CR6203"),
+            new RegisteredVoter("ED9876")
+            // ... and many more
+        ));
+
+        Set<RegisteredVoter> votersInHackney = ElectoralDistrict.votersIn(HACKNEY, allVoters);
+
+        assertThat(votersInHackney, instanceOf(Class.forName("java.util.Collections$UnmodifiableSet")));
+    }
 
     // Test helpers
 
     private static Matcher<Person> aPersonNamed(String name) {
-        return new FeatureMatcher<Person, String>(Matchers.is(name), "is a person", "name") {
-            @Override protected String featureValueOf(Person person) {
-                return person.name;
+        return featureMatcher(is(name), "a person", "name", p -> p.name);
+    }
+
+    private static Matcher<RegisteredVoter> aVoterWithId(String name) {
+        return featureMatcher(is(name), "a voter", "electorId", v -> v.electorId);
+    }
+
+    private static Matcher<Ballot> spoiled() {
+        return featureMatcher(equalTo(true), "a spoiled ballot", "isSpoiled", b -> b.isSpoiled);
+    }
+
+    private static <FROM, FEATURE> Matcher<FROM> featureMatcher(Matcher<FEATURE> featureMatcher,
+                                                                String description,
+                                                                String name,
+                                                                Function<FROM, FEATURE> extractor) {
+        return new FeatureMatcher<FROM, FEATURE>(featureMatcher, description, name) {
+            @Override protected FEATURE featureValueOf(FROM t) {
+                return extractor.apply(t);
             }
         };
     }
 
-    private static Matcher<RegisteredVoter> aVoterWithId(String name) {
-        return new FeatureMatcher<RegisteredVoter, String>(Matchers.is(name), "is a voter", "electorId") {
-            @Override protected String featureValueOf(RegisteredVoter voter) {
-                return voter.electorId;
-            }
-        };
-    }
 }

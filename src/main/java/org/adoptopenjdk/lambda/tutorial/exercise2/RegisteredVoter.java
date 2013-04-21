@@ -28,4 +28,11 @@ public final class RegisteredVoter {
     public int hashCode() {
         return electorId.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "RegisteredVoter{" +
+                "electorId='" + electorId + '\'' +
+                '}';
+    }
 }
