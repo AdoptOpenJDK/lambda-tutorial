@@ -140,7 +140,7 @@ public class Exercise_2_Test {
      * prefer the result to be a java.util.Set. Use Stream.collect() to produce a
      * Set containing the result, rather than a List.
      *
-     * HINT: sometimes type inference is "not there yet", help out the compiler
+     * HINT: sometimes type inference is "not there yet", in either the IDE or javac, help out the compiler
      * with explicit generic arguments if you have to.
      *
      * @see Stream#collect(java.util.stream.Collector)
