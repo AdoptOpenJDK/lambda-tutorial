@@ -133,7 +133,7 @@ public class Exercise_2_Test {
     }
 
     /**
-     * Uses Stream.filter() to find all the voters residing in a given district.
+     * Use Stream.filter() to find all the voters residing in a given district.
      *
      * The resulting collection is to be used for quick lookups to find if a given
      * voter resides in a district. Performance measurements indicate we should
@@ -166,6 +166,12 @@ public class Exercise_2_Test {
         assertThat(votersInHackney, containsInAnyOrder(aVoterWithId("HA7654"), aVoterWithId("HA2213")));
     }
 
+    /**
+     * Use Stream.filter() to remove all the ballots that have been spoiled.
+     *
+     * @see ElectoralDistrict#unspoiledBallots(Set)
+     * @see Ballot#isSpoiled
+     */
     @Test public void removeAllSpoiledBallots() {
         Set<Ballot> votes = new HashSet<>(asList(
                 Ballot.voteFor(Party.LABOUR),
