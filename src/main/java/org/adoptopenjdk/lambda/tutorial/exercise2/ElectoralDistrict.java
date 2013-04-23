@@ -1,21 +1,9 @@
 package org.adoptopenjdk.lambda.tutorial.exercise2;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.DelegatingStream;
-import java.util.stream.Stream;
 
 /**
  * Lambda Tutorial -- Adopt Open JDK
@@ -46,13 +34,18 @@ public enum ElectoralDistrict {
             }
         }
 
-        return votersInDistrict;
+        return Collections.unmodifiableSet(votersInDistrict);
     }
 
     public static Set<Ballot> unspoiledBallots(Set<Ballot> votes) {
-        // [your code here]
+        Set<Ballot> unspoiledBallots = new HashSet<>();
+        for (Ballot v: votes) {
+            if (!v.isSpoiled) {
+                unspoiledBallots.add(v);
+            }
+        }
 
-        return Collections.emptySet();
+        return unspoiledBallots;
     }
 }
 
