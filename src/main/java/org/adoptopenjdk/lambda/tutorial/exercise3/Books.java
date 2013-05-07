@@ -1,8 +1,8 @@
 package org.adoptopenjdk.lambda.tutorial.exercise3;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public class Books {
     public static List<String> titlesOf(List<Book> books) {
@@ -17,7 +17,7 @@ public class Books {
         return Collections.emptyList();
     }
 
-    public static Collection<Publisher> publishersRepresentedBy(List<Book> books) {
+    public static Set<Publisher> publishersRepresentedBy(List<Book> books) {
         // [your code here]
 
         return Collections.emptySet();
