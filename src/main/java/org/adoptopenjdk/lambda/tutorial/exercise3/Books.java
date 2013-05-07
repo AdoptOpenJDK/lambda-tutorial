@@ -1,25 +1,35 @@
 package org.adoptopenjdk.lambda.tutorial.exercise3;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class Books {
     public static List<String> titlesOf(List<Book> books) {
-        // [your code here]
+        List<String> titles = new ArrayList<>();
+        for (Book b: books) {
+            titles.add(b.title);
+        }
 
-        return Collections.emptyList();
+        return titles;
     }
 
     public static List<String> namesOfAuthorsOf(List<Book> books) {
-        // [your code here]
+        List<String> fullNames = new ArrayList<>();
+        for (Book b: books) {
+            fullNames.add(b.author.fullName());
+        }
 
-        return Collections.emptyList();
+        return fullNames;
     }
 
     public static Set<Publisher> publishersRepresentedBy(List<Book> books) {
-        // [your code here]
+        Set<Publisher> publishers = new HashSet<>();
+        for (Book b: books) {
+            publishers.add(b.publisher);
+        }
 
-        return Collections.emptySet();
+        return publishers;
     }
 }
