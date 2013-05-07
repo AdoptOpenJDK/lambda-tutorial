@@ -6,9 +6,8 @@ import org.adoptopenjdk.lambda.tutorial.exercise2.Party;
 import org.adoptopenjdk.lambda.tutorial.exercise2.Person;
 import org.adoptopenjdk.lambda.tutorial.exercise2.RegisteredVoter;
 import org.adoptopenjdk.lambda.tutorial.exercise2.VotingRules;
-import org.hamcrest.FeatureMatcher;
+import org.adoptopenjdk.lambda.tutorial.util.FeatureMatchers;
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -26,7 +24,6 @@ import java.util.stream.Stream;
 import static java.util.Arrays.asList;
 import static java.util.Arrays.binarySearch;
 import static org.adoptopenjdk.lambda.tutorial.exercise2.ElectoralDistrict.HACKNEY;
-import static org.adoptopenjdk.lambda.tutorial.exercise2.ElectoralDistrict.votersIn;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
@@ -221,26 +218,15 @@ public class Exercise_2_Test {
     // Test helpers
 
     private static Matcher<Person> aPersonNamed(String name) {
-        return featureMatcher(is(name), "a person", "name", p -> p.name);
+        return FeatureMatchers.from(is(name), "a person", "name", p -> p.name);
     }
 
     private static Matcher<RegisteredVoter> aVoterWithId(String name) {
-        return featureMatcher(is(name), "a voter", "electorId", v -> v.electorId);
+        return FeatureMatchers.from(is(name), "a voter", "electorId", v -> v.electorId);
     }
 
     private static Matcher<Ballot> spoiled() {
-        return featureMatcher(equalTo(true), "a spoiled ballot", "isSpoiled", b -> b.isSpoiled);
-    }
-
-    private static <FROM, FEATURE> Matcher<FROM> featureMatcher(Matcher<FEATURE> featureMatcher,
-                                                                String description,
-                                                                String name,
-                                                                Function<FROM, FEATURE> extractor) {
-        return new FeatureMatcher<FROM, FEATURE>(featureMatcher, description, name) {
-            @Override protected FEATURE featureValueOf(FROM t) {
-                return extractor.apply(t);
-            }
-        };
+        return FeatureMatchers.from(equalTo(true), "a spoiled ballot", "isSpoiled", b -> b.isSpoiled);
     }
 
 }

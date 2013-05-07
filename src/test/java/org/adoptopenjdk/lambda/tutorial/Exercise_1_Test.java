@@ -4,7 +4,7 @@ package org.adoptopenjdk.lambda.tutorial;
 import org.adoptopenjdk.lambda.tutorial.exercise1.Color;
 import org.adoptopenjdk.lambda.tutorial.exercise1.Shape;
 import org.adoptopenjdk.lambda.tutorial.exercise1.Shapes;
-import org.hamcrest.FeatureMatcher;
+import org.adoptopenjdk.lambda.tutorial.util.FeatureMatchers;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -139,11 +139,7 @@ public class Exercise_1_Test {
     // Test helpers
 
     private static Matcher<Shape> hasColor(Color color) {
-        return new FeatureMatcher<Shape, Color>(Matchers.is(color), "has color", "color") {
-            @Override protected Color featureValueOf(Shape shape) {
-                return shape.getColor();
-            }
-        };
+        return FeatureMatchers.from(Matchers.is(color), "has color", "color", Shape::getColor);
     }
 }
 
