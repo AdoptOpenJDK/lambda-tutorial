@@ -1,12 +1,21 @@
 package org.adoptopenjdk.lambda.tutorial;
 
+import org.adoptopenjdk.lambda.tutorial.exercise3.Author;
+import org.adoptopenjdk.lambda.tutorial.exercise3.Book;
+import org.adoptopenjdk.lambda.tutorial.exercise3.Books;
+import org.adoptopenjdk.lambda.tutorial.exercise3.Publisher;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 
 /**
  * Exercise 3 - Mapping
@@ -63,6 +72,9 @@ import java.util.stream.Stream;
  *
  * The map operation is also known in other languages/libraries as: transform; collect.
  *
+ * The below tests can be made to pass using Stream's map method. Try to make them pass without using a loop, or adding
+ * to a new collection manually.
+ *
  * @see Collection#stream()
  * @see Stream#map(Function)
  * @see Function
@@ -73,9 +85,58 @@ import java.util.stream.Stream;
  */
 public class Exercise_3_Test {
 
-    @Test public void tbd() {
+    private final Author joshuaBloch = new Author("Joshua", "Bloch");
+    private final Author brianGoetz = new Author("Brian", "Goetz");
+    private final Author barryBurd = new Author("Barry", "Burd");
 
+    private final Publisher addisonWesley = new Publisher("Addison-Wesley");
+    private final Publisher johnWileyAndSons = new Publisher("John Wiley & Sons");
 
+    private final Book effectiveJava = new Book("Effective Java", joshuaBloch, addisonWesley);
+    private final Book javaConcurrencyInPractice = new Book("Java Concurrency In Practice", brianGoetz, addisonWesley);
+    private final Book javaForDummies = new Book("Java For Dummies", barryBurd, johnWileyAndSons);
+
+    private final List<Book> books = Arrays.asList(effectiveJava, javaConcurrencyInPractice, javaForDummies);
+
+    /**
+     * Use Stream.map() to convert a collection of books into a collection of their titles.
+     */
+    @Test
+    public void getAllBookTitles() {
+        assertThat(Books.titlesOf(books),
+                contains("Effective Java", "Java Concurrency In Practice", "Java For Dummies"));
+    }
+
+    /**
+     * Use Stream.map() to convert a collection of books into a collection of the author's full names.
+     *
+     * Note that it is possible to chain calls to map(). E.g. myCollection.map(...).map(...).collect(). That may come
+     * in useful when generating an author's full name.
+     *
+     * @see Author#fullName()
+     */
+    @Test
+    public void getNamesOfAuthorsOfBooks() {
+        assertThat(Books.namesOfAuthorsOf(books),
+                contains("Joshua Bloch", "Brian Goetz", "Barry Burd"));
+    }
+
+    /**
+     * Use Stream.map() to convert a collection of books into a collection of the distinct publishers represented within
+     * the given list of books. For example, given books A published by X, B published by Y, and C published by Y,
+     * return a collection consisting of X and Y.
+     *
+     * This can be done with a single stream().map(...).collect(...). Remember you can collect into collections other
+     * than a List.
+     *
+     * @see Publisher#hashCode()
+     * @see Publisher#equals(Object)
+     * @see Collectors#toSet()
+     */
+    @Test
+    public void getPublishersRepresentedByBooks() {
+        assertThat(Books.publishersRepresentedBy(books),
+                contains(addisonWesley, johnWileyAndSons));
     }
 
 }
