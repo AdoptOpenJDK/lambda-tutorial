@@ -4,6 +4,8 @@ import org.adoptopenjdk.lambda.tutorial.exercise3.Author;
 import org.adoptopenjdk.lambda.tutorial.exercise3.Book;
 import org.adoptopenjdk.lambda.tutorial.exercise3.Books;
 import org.adoptopenjdk.lambda.tutorial.exercise3.Publisher;
+import org.adoptopenjdk.lambda.tutorial.util.FeatureMatchers;
+import org.hamcrest.Matcher;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -15,7 +17,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Exercise 3 - Mapping
@@ -83,6 +86,7 @@ import static org.hamcrest.Matchers.contains;
  * @see Collectors#toList()
  *
  */
+@SuppressWarnings("unchecked")
 public class Exercise_3_Test {
 
     private final Author joshuaBloch = new Author("Joshua", "Bloch");
@@ -104,7 +108,7 @@ public class Exercise_3_Test {
     @Test
     public void getAllBookTitles() {
         assertThat(Books.titlesOf(books),
-                contains("Effective Java", "Java Concurrency In Practice", "Java For Dummies"));
+                containsInAnyOrder("Effective Java", "Java Concurrency In Practice", "Java For Dummies"));
     }
 
     /**
@@ -118,7 +122,7 @@ public class Exercise_3_Test {
     @Test
     public void getNamesOfAuthorsOfBooks() {
         assertThat(Books.namesOfAuthorsOf(books),
-                contains("Joshua Bloch", "Brian Goetz", "Barry Burd"));
+                containsInAnyOrder("Joshua Bloch", "Brian Goetz", "Barry Burd"));
     }
 
     /**
@@ -136,7 +140,14 @@ public class Exercise_3_Test {
     @Test
     public void getPublishersRepresentedByBooks() {
         assertThat(Books.publishersRepresentedBy(books),
-                contains(addisonWesley, johnWileyAndSons));
+                containsInAnyOrder(publisherNamed("Addison-Wesley"), publisherNamed("John Wiley & Sons")));
+    }
+
+
+    // Test helpers
+
+    private static Matcher<Publisher> publisherNamed(String name) {
+        return FeatureMatchers.from(equalTo(name), "is named", "name", p -> p.name);
     }
 
 }
