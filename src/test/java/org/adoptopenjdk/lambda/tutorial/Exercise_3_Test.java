@@ -1,0 +1,81 @@
+package org.adoptopenjdk.lambda.tutorial;
+
+import org.junit.Test;
+
+import java.util.Collection;
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+/**
+ * Exercise 3 - Mapping
+ *
+ * Along with filter, map is one of the most common operations to perform.
+ *
+ * Consider this idiomatic Java code used to convert a list of strings to uppercase:
+ *
+ *     List<String> upperCaseStrings = new ArrayList<>();
+ *     for (String s: mixedCaseStrings) {
+ *         upperCaseStrings.add(s.toUpperCase());
+ *     }
+ *     return upperCaseStrings;
+ *
+ * As with the filter operation, map removes a lot of the boilerplate of this example by pushing the common code into
+ * the library, rather than having it repeated in your code. In this case, we are again:
+ *     - constructing a new, empty, destination collection
+ *     - iterating over the source collection
+ *     - "doing something" to each element
+ *     - adding the result to a new collection
+ *
+ * However, unlike filter, we are not just adding elements that pass a test, we are taking the element and creating some
+ * new value before adding it. The new value in the example above is taking the result of toUpperCase(). The result is a
+ * new list, of the same length, where each element is the result of mapping the source element. In post-JDK 8, you
+ * can express this operation like so:
+ *
+ *    return mixedCaseStrings.stream().map(s -> s.toUpperCase()).collect(Collectors.toList());
+ *
+ * As with the last exercise, we "open up" the Streams API by calling .stream() on a collection. This allows us to
+ * access the map() method.
+ *
+ * The map() method takes a function (java.util.function.Function) as an argument, and applies it to each element in a
+ * list. Since Function is an interface with a single abstract method, JDK 8 allows us to express it as a lambda. The
+ * single method on the Function type takes a single parameter of a certain type and returns a single result
+ * of another type. In this example, the input type is String, and the return type also happens to be String. It
+ * could be return any type, the resultant collection will be a collection of that type.
+ *
+ * Again we're transferring into a destination list by means of the Collectors.toList() method.
+ *
+ * So what is the result of both of implementations:
+ *
+ * If the variable 'mixedCaseStrings' in the example above looked like this:
+ *
+ *     ["I", "am", "really", "enjoying", "lambda-tutorial"]
+ *
+ * The resultant variable 'upperCaseStrings', would like like this:
+ *
+ *     ["I", "AM", "REALLY", "ENJOYING", "LAMBDA-TUTORIAL"]
+ *
+ * An important point to consider is that the map() method does not modify the original list, mixedCaseStrings still
+ * exists, as it was before. This makes it much easier to prevent bugs where mixedCaseStrings could be used elsewhere,
+ * perhaps later in the execution, or even concurrently in a different thread.
+ *
+ *
+ * The map operation is also known in other languages/libraries as: transform; collect.
+ *
+ * @see Collection#stream()
+ * @see Stream#map(Function)
+ * @see Function
+ * @see Collector
+ * @see Collectors
+ * @see Collectors#toList()
+ *
+ */
+public class Exercise_3_Test {
+
+    @Test public void tbd() {
+
+
+    }
+
+}
