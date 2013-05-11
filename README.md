@@ -25,5 +25,12 @@ To follow the exercises:
 ### Getting Lambda JDK
 Early access builds of JDK 8 are available [here](https://jdk8.java.net/lambda/). 
  
-#### Lambda JDK Version Policy
-lambda-tutorial will try to track against the newest version available. Currently that is __b88__, which was released on May 09, 2013. If you find that a newer version of the Lambda JDK does not work, please file an issue.
+
+#### Lamba JDK Build Compatibility
+The current tutorial is known to work with the following JDK build:
+
+|JDK Build Number|Released On |
+|:---------------|:---------- |
+|b88             |May 09, 2013|
+
+lambda-tutorial will try to track against the newest version available. If you find that you are working with a newer version of the Lambda JDK and the tutorial does not compile or run, please file an issue.
