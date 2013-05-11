@@ -5,7 +5,7 @@ A set of exercises to teach use of Java 8 lambda syntax, and the new Streams API
 To follow the exercises:
 
  - fork and clone the repository
- - ensure you have a correctly configured, lambda-enabled Java build
+ - ensure you have a correctly configured, [lambda-enabled Java build](Getting Lambda JDK)
    - Maven can help generate configuration for your favourite IDE, though you will likely have to set the JDK manually
    - ensure your cloned project, particularly the class `ConfigureYourLambdaBuildOfJdk` compiles and runs correctly
  - navigate to the first exercise, `Exercise_1_Test` (tests are in `src/test/java`, in the package `org.adoptopenjdk.lambda.tutorial`)
@@ -22,4 +22,8 @@ To follow the exercises:
 [More to come]
 
 
+### Getting Lambda JDK
+Early access builds of JDK 8 are available [here](https://jdk8.java.net/lambda/). 
  
+#### Lambda JDK Version Policy
+lambda-tutorial will try to track against the newest version available. Currently that is __b88__, which was released on May 09, 2013. If you find that a newer version of the Lambda JDK does not work, please file an issue.
