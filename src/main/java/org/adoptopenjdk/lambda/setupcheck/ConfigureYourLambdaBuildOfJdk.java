@@ -4,9 +4,7 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 /**
- *
- *
- * Lambda Tutorial -- Adopt Open JDK
+ * Utility class to warn users if they have an incorrect environment
  * @author Graham Allan grundlefleck at gmail dot com
  */
 public class ConfigureYourLambdaBuildOfJdk {
