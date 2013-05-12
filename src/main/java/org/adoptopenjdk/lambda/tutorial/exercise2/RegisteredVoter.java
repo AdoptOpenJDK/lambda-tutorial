@@ -6,7 +6,7 @@ package org.adoptopenjdk.lambda.tutorial.exercise2;
  * @author Graham Allan grundlefleck at gmail dot com
  */
 public final class RegisteredVoter {
-    public final String electorId;
+    private final String electorId;
 
     public RegisteredVoter(String electorId) {
         this.electorId = electorId;
@@ -19,7 +19,7 @@ public final class RegisteredVoter {
 
         RegisteredVoter that = (RegisteredVoter) o;
 
-        if (!electorId.equals(that.electorId)) return false;
+        if (!electorId.equals(that.getElectorId())) return false;
 
         return true;
     }
@@ -34,5 +34,9 @@ public final class RegisteredVoter {
         return "RegisteredVoter{" +
                 "electorId='" + electorId + '\'' +
                 '}';
+    }
+
+    public String getElectorId() {
+        return electorId;
     }
 }
