@@ -226,7 +226,7 @@ public class Exercise_2_Test {
     }
 
     private static Matcher<Ballot> spoiled() {
-        return FeatureMatchers.from(equalTo(true), "a spoiled ballot", "isSpoiled", b -> b.isSpoiled);
+        return FeatureMatchers.from(equalTo(Boolean.TRUE), "a spoiled ballot", "isSpoiled", b -> b.isSpoiled);
     }
 
 }
