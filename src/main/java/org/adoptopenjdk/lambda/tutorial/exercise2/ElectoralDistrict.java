@@ -2,6 +2,7 @@ package org.adoptopenjdk.lambda.tutorial.exercise2;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,17 +28,25 @@ public enum ElectoralDistrict {
     }
 
     public static Set<RegisteredVoter> votersIn(ElectoralDistrict district, Collection<RegisteredVoter> voters) {
-        Set<RegisteredVoter> fromDistrict = voters.stream()
-                .filter(v -> v.getElectorId().startsWith(district.prefix))
-                .collect(Collectors.toSet());
+        Set<RegisteredVoter> votersInDistrict = new HashSet<>();
+        for (RegisteredVoter v: voters) {
+            if (v.getElectorId().startsWith(district.prefix)) {
+                votersInDistrict.add(v);
+            }
+        }
 
-        return Collections.unmodifiableSet(fromDistrict);
+        return Collections.unmodifiableSet(votersInDistrict);
     }
 
     public static Set<Ballot> unspoiledBallots(Set<Ballot> votes) {
-        return votes.stream()
-                .filter(v -> !v.isSpoiled())
-                .collect(Collectors.toSet());
+        Set<Ballot> unspoiledBallots = new HashSet<>();
+        for (Ballot v: votes) {
+            if (!v.isSpoiled()) {
+                unspoiledBallots.add(v);
+            }
+        }
+
+        return unspoiledBallots;
     }
 }
 
