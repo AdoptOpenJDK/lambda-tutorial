@@ -2,8 +2,8 @@ package org.adoptopenjdk.lambda.tutorial.exercise2;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Lambda Tutorial -- Adopt Open JDK
@@ -27,25 +27,17 @@ public enum ElectoralDistrict {
     }
 
     public static Set<RegisteredVoter> votersIn(ElectoralDistrict district, Collection<RegisteredVoter> voters) {
-        Set<RegisteredVoter> votersInDistrict = new HashSet<>();
-        for (RegisteredVoter v: voters) {
-            if (v.electorId.startsWith(district.prefix)) {
-                votersInDistrict.add(v);
-            }
-        }
+        Set<RegisteredVoter> fromDistrict = voters.stream()
+                .filter(v -> v.getElectorId().startsWith(district.prefix))
+                .collect(Collectors.toSet());
 
-        return Collections.unmodifiableSet(votersInDistrict);
+        return Collections.unmodifiableSet(fromDistrict);
     }
 
     public static Set<Ballot> unspoiledBallots(Set<Ballot> votes) {
-        Set<Ballot> unspoiledBallots = new HashSet<>();
-        for (Ballot v: votes) {
-            if (!v.isSpoiled) {
-                unspoiledBallots.add(v);
-            }
-        }
-
-        return unspoiledBallots;
+        return votes.stream()
+                .filter(v -> !v.isSpoiled())
+                .collect(Collectors.toSet());
     }
 }
 
