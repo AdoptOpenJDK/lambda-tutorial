@@ -1,6 +1,5 @@
 package org.adoptopenjdk.lambda.tutorial.exercise3;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;

@@ -1,16 +1,12 @@
 package org.adoptopenjdk.lambda.tutorial.exercise2;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class VotingRules {
     public static List<Person> eligibleVoters(List<Person> potentialVoters, int legalAgeOfVoting) {
-
         return potentialVoters.stream()
-            .filter(p -> p.age >= legalAgeOfVoting)
+            .filter(p -> p.getAge() >= legalAgeOfVoting)
             .collect(Collectors.toList());
     }
 }

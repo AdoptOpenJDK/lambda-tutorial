@@ -35,7 +35,7 @@ public class Shapes {
      * Example:
      *   given a list containing [BLUE shape, GREEN shape, BLACK shape]
      *   when this method is called with that list and an empty StringBuilder
-     *   then the StringBuilder's toString method will return "[BLUE][GREEN][BLACK]"
+     *   then the StringBuilder's toString method will return "[a BLUE shape][a GREEN shape][a BLACK shape]"
      *
      * @see Shape#toString()
      */
@@ -43,25 +43,25 @@ public class Shapes {
         shapes.forEach(s -> stringBuilder.append(s));
     }
 
-
     /**
      * Changes the color of each given shape to newColor, appending a String representation of the color of all the
      * shapes, as they were before they were changed.
-     *
      *
      * Example:
      *   given a list containing [BLUE shape, GREEN shape, BLACK shape]
      *   when this method is called with that list, the color RED, and an empty StringBuilder
      *   then the list will contain [RED shape, RED shape, RED shape]
-     *     and the StringBuilder's toString method will return "[BLUE][GREEN][BLACK]"
+     *     and the StringBuilder's toString method will return "[a BLUE shape][a GREEN shape][a BLACK shape]"
      *
-     * This operation is performed in one pass over the <code>shapes</code> List.
+     * This operation is performed in one pass over the <code>shapes</code> List. Note that syntactically a 
+     * lambda is similar toan ordinary Java code block. Therefore multiple statements separated by ; are 
+     * perfectly legal e.g. <code> (x -> { x.doSomething(); y.doSomethingElse(); });</code> 
      *
      * @see Shape#setColor(Color)
      * @see Shape#toString()
      */
     public static void changeColorAndMakeStringOfOldColors(List<Shape> shapes, Color newColor, StringBuilder stringBuilder) {
-        shapes.forEach(s -> { stringBuilder.append("[" + s.getColor() + "]"); s.setColor(newColor); });
+        shapes.forEach(s -> { stringBuilder.append(s.toString()); s.setColor(newColor); });
 
     }
 }

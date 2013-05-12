@@ -6,8 +6,8 @@ package org.adoptopenjdk.lambda.tutorial.exercise2;
  * @author Graham Allan grundlefleck at gmail dot com
  */
 public final class Ballot {
-    public final boolean isSpoiled;
-    public final Party party;
+    private final boolean isSpoiled;
+    private final Party party;
 
     private Ballot(Party party) {
         this.party = party;
@@ -28,5 +28,13 @@ public final class Ballot {
 
     public static Ballot spoiled() {
         return new Ballot(null);
+    }
+
+    public boolean isSpoiled() {
+        return isSpoiled;
+    }
+
+    public Party getParty() {
+        return party;
     }
 }

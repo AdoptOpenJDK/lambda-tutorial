@@ -28,7 +28,7 @@ public enum ElectoralDistrict {
 
     public static Set<RegisteredVoter> votersIn(ElectoralDistrict district, Collection<RegisteredVoter> voters) {
         Set<RegisteredVoter> fromDistrict = voters.stream()
-                .filter(v -> v.electorId.startsWith(district.prefix))
+                .filter(v -> v.getElectorId().startsWith(district.prefix))
                 .collect(Collectors.toSet());
 
         return Collections.unmodifiableSet(fromDistrict);
@@ -36,9 +36,8 @@ public enum ElectoralDistrict {
 
     public static Set<Ballot> unspoiledBallots(Set<Ballot> votes) {
         return votes.stream()
-                .filter(v -> !v.isSpoiled)
+                .filter(v -> !v.isSpoiled())
                 .collect(Collectors.toSet());
-
     }
 }
 

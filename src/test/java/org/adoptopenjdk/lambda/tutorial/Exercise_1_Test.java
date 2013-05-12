@@ -1,6 +1,5 @@
 package org.adoptopenjdk.lambda.tutorial;
 
-
 import org.adoptopenjdk.lambda.tutorial.exercise1.Color;
 import org.adoptopenjdk.lambda.tutorial.exercise1.Shape;
 import org.adoptopenjdk.lambda.tutorial.exercise1.Shapes;
@@ -22,44 +21,51 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.hasSize;
 
-
 /**
  * Exercise 1 - Internal vs External iteration.
- *
+ * <p>
  * As described in Brian Goetz's State of the Lambda - Libraries Edition[0], Java's collection classes provide a way for
  * clients to enumerate the members of a collection. Currently, this is iteration is "External" - that is, the
  * collection can be iterated in sequence, by the client code.
- *
+ * </p>
+ * <p>
  * This refers to the trusty "for loop":
- *
- *   for (Shape s: shapes) {
+ * <pre>
+ * {@code
+ *    for (Shape s: shapes) {
  *       s.setColor(RED)
- *   }
- *
+ *    }
+ * }
+ * </pre>
+ * </p>
+ * <p>
  * JDK 8, with lambdas and an updated Collections library, will allow "Internal" iteration. In this case, the collection
  * receives some code, and decides how to apply that to its elements. This has several benefits, including:
  *  - allowing the collection to decide how to handle executing given code, including opening the door to parallelism and laziness
  *  - leads to a style where operations can be pipelined, into a more fluent, readable style.
- *
+ * </p>
+ * <p>
  * Internal iteration, using lambda expression syntax, turns the above for loop into:
- *
- *  shapes.forEach(s -> s.setColor(RED))
- *
- * Where "s -> s.setColor(RED)" is a lambda expression, which is passed into forEach, and invoked inside forEach. Lambda
+ * <pre>
+ * {@code 
+ * shapes.forEach(s -> s.setColor(RED))
+ * }
+ * </pre>
+ * Where <code>s -> s.setColor(RED)</code> is a lambda expression, which is passed into forEach, and invoked inside forEach. Lambda
  * expressions have a type, called a "Functional Interface". In this case the lambda is of type Consumer. Consumer declares
- * a single method, "void accept(T t)". This is all hidden by the Java compiler, and unless you extract the lambda to a
- * variable, or write a method which accepts a lambda, you don't really need to know about it.
- *
- * The below tests can be made to pass using for loops. Try to make them pass without using a for loop.
- *
+ * a single method, <code>void accept(T t)</code>. This is all hidden by the Java compiler, and unless you extract the lambda 
+ * to a variable, or write a method which accepts a lambda, you don't really need to know about it.
+ * </p>
+ * <p>
+ * The tests below can be made to pass using for loops. Try to make them pass without using a for loop.
+ * </p>
  * [0] http://cr.openjdk.java.net/~briangoetz/lambda/sotc3.html
- *
+ * 
  * @see java.lang.Iterable#forEach
  * @see Shape
  * @see Shapes
  * @see Color
  *
- * Lambda Tutorial -- Adopt Open JDK
  * @author Graham Allan grundlefleck at gmail dot com
  */
 @SuppressWarnings("unchecked")
@@ -110,7 +116,6 @@ public class Exercise_1_Test {
         assertThat(builder.toString(), equalTo("[a RED shape][a BLACK shape][a YELLOW shape]"));
     }
 
-
     /**
      * Use forEach to change the color, and build a string showing the old colors of each shape.
      *
@@ -131,17 +136,12 @@ public class Exercise_1_Test {
 
         assertThat(myShapes, hasSize(3));
         assertThat(myShapes, everyItem(hasColor(GREEN)));
-        assertThat(builder.toString(), equalTo("[BLUE][BLACK][YELLOW]"));
+        assertThat(builder.toString(), equalTo("[a BLUE shape][a BLACK shape][a YELLOW shape]"));
     }
 
-
-
-    // Test helpers
+    // ----- Test helpers -----
 
     private static Matcher<Shape> hasColor(Color color) {
         return FeatureMatchers.from(Matchers.is(color), "has color", "color", Shape::getColor);
     }
 }
-
-
-
