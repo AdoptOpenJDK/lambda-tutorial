@@ -1,5 +1,27 @@
 package org.adoptopenjdk.lambda.tutorial;
 
+/*
+ * #%L
+ * lambda-tutorial
+ * %%
+ * Copyright (C) 2013 Adopt OpenJDK
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 2 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-2.0.html>.
+ * #L%
+ */
+
 import org.adoptopenjdk.lambda.tutorial.exercise2.Ballot;
 import org.adoptopenjdk.lambda.tutorial.exercise2.ElectoralDistrict;
 import org.adoptopenjdk.lambda.tutorial.exercise2.Party;
@@ -41,7 +63,8 @@ import static org.hamcrest.Matchers.not;
  * </p>
  * <p>
  * Consider how often you have written code like this:
- * <pre>
+ * TODO Bug in the Javdoc processor? It claims the code annotation construct is invalid
+ * <pre> 
  * {@code
  *     List<String> things = new ArrayList<>();
  *     for (String s: otherThings) {
@@ -169,8 +192,8 @@ public class Exercise_2_Test {
      * @see Stream#collect(java.util.stream.Collector)
      * @see java.util.stream.Collectors#toSet()
      *
-     * @see ElectoralDistrict#prefix
-     * @see RegisteredVoter#electorId
+     * @see ElectoralDistrict#getPrefix()
+     * @see RegisteredVoter#getElectorId()
      */
     @Test public void setOfVotersInDistrict() {
         List<RegisteredVoter> allVoters = new ArrayList<>(asList(
@@ -223,6 +246,7 @@ public class Exercise_2_Test {
      * The Streams API does not provide a way to wrap the final result, as one of its operations. So just wrap the
      * result in an unmodifiableSet yourself. Sometimes it's just as important to know what an API _doesn't_ do.
      * </p>
+     * @throws ClassNotFoundException If the lambdas binary build no longer contains the class
      * @see Stream#collect(java.util.stream.Collector)
      * @see java.util.stream.Collectors#toSet()
      * @see Collections#unmodifiableSet(java.util.Set)

@@ -1,5 +1,27 @@
 package org.adoptopenjdk.lambda.tutorial.exercise1;
 
+/*
+ * #%L
+ * lambda-tutorial
+ * %%
+ * Copyright (C) 2013 Adopt OpenJDK
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 2 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-2.0.html>.
+ * #L%
+ */
+
 import java.util.List;
 
 /**
@@ -19,6 +41,9 @@ public class Shapes {
      *   given a list containing [BLUE shape, GREEN shape, BLACK shape]
      *   when this method is called with that list and the color RED
      *   then the list will contain [RED shape, RED shape, RED shape]
+     * 
+     * @param shapes - shapes to color in 
+     * @param newColor - the new color
      *
      * @see Shape#setColor(Color)
      */
@@ -36,6 +61,9 @@ public class Shapes {
      *   given a list containing [BLUE shape, GREEN shape, BLACK shape]
      *   when this method is called with that list and an empty StringBuilder
      *   then the StringBuilder's toString method will return "[a BLUE shape][a GREEN shape][a BLACK shape]"
+     *   
+     * @param shapes - shapes to work over
+     * @param stringBuilder - string builder to append to
      *
      * @see Shape#toString()
      */
@@ -54,8 +82,12 @@ public class Shapes {
      *     and the StringBuilder's toString method will return "[a BLUE shape][a GREEN shape][a BLACK shape]"
      *
      * This operation is performed in one pass over the <code>shapes</code> List. Note that syntactically a 
-     * lambda is similar toan ordinary Java code block. Therefore multiple statements separated by ; are 
-     * perfectly legal e.g. <code> (x -> { x.doSomething(); y.doSomethingElse(); });</code> 
+     * lambda is similar to an ordinary Java code block. Therefore multiple statements separated by ; are 
+     * perfectly legal e.g. {@code (x -> { x.doSomething(); y.doSomethingElse(); }); }
+     *  
+     * @param shapes - shapes to change color of 
+     * @param newColor - new color
+     * @param stringBuilder - string builder to append to
      *
      * @see Shape#setColor(Color)
      * @see Shape#toString()
