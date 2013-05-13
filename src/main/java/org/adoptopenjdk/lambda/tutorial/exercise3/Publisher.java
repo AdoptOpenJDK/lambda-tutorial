@@ -1,7 +1,11 @@
 package org.adoptopenjdk.lambda.tutorial.exercise3;
 
+/**
+ * Domain object representing a Publisher
+ */
 public final class Publisher {
-    public final String name;
+    
+    private final String name;
 
     public Publisher(String name) {
         this.name = name;
@@ -14,7 +18,7 @@ public final class Publisher {
 
         Publisher publisher = (Publisher) o;
 
-        if (!name.equals(publisher.name)) return false;
+        if (!name.equals(publisher.getName())) return false;
 
         return true;
     }
@@ -22,5 +26,9 @@ public final class Publisher {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    public String getName() {
+        return name;
     }
 }

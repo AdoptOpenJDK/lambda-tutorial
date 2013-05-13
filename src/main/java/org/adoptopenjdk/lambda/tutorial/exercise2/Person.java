@@ -1,5 +1,8 @@
 package org.adoptopenjdk.lambda.tutorial.exercise2;
 
+/**
+ * Basic class representing a human being
+ */
 public final class Person {
 
     private final String name;

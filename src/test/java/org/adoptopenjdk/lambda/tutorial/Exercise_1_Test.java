@@ -30,6 +30,7 @@ import static org.hamcrest.Matchers.hasSize;
  * </p>
  * <p>
  * This refers to the trusty "for loop":
+ * TODO Bug in the Javdoc processor? It claims the code annotation construct is invalid
  * <pre>
  * {@code
  *    for (Shape s: shapes) {

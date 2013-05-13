@@ -6,6 +6,7 @@ package org.adoptopenjdk.lambda.tutorial.exercise2;
  * @author Graham Allan grundlefleck at gmail dot com
  */
 public final class Ballot {
+
     private final boolean isSpoiled;
     private final Party party;
 
@@ -22,10 +23,20 @@ public final class Ballot {
                 '}';
     }
 
+    /**
+     * Vote for a particular party on a Ballot
+     * 
+     * @param party - party to vote for
+     * @return The Ballot containing the party
+     */
     public static Ballot voteFor(Party party) {
         return new Ballot(party);
     }
 
+    /**
+     * Indicate a spoiled Ballot (one that has no Party)
+     * @return A spoiled Ballot
+     */
     public static Ballot spoiled() {
         return new Ballot(null);
     }

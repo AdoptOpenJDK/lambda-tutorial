@@ -6,6 +6,7 @@ package org.adoptopenjdk.lambda.tutorial.exercise2;
  * @author Graham Allan grundlefleck at gmail dot com
  */
 public final class RegisteredVoter {
+
     private final String electorId;
 
     public RegisteredVoter(String electorId) {

@@ -19,6 +19,9 @@ public class Shapes {
      *   given a list containing [BLUE shape, GREEN shape, BLACK shape]
      *   when this method is called with that list and the color RED
      *   then the list will contain [RED shape, RED shape, RED shape]
+     * 
+     * @param shapes - shapes to color in 
+     * @param newColor - the new color
      *
      * @see Shape#setColor(Color)
      */
@@ -36,6 +39,9 @@ public class Shapes {
      *   given a list containing [BLUE shape, GREEN shape, BLACK shape]
      *   when this method is called with that list and an empty StringBuilder
      *   then the StringBuilder's toString method will return "[a BLUE shape][a GREEN shape][a BLACK shape]"
+     *   
+     * @param shapes - shapes to work over
+     * @param stringBuilder - string builder to append to
      *
      * @see Shape#toString()
      */
@@ -54,8 +60,12 @@ public class Shapes {
      *     and the StringBuilder's toString method will return "[a BLUE shape][a GREEN shape][a BLACK shape]"
      *
      * This operation is performed in one pass over the <code>shapes</code> List. Note that syntactically a 
-     * lambda is similar toan ordinary Java code block. Therefore multiple statements separated by ; are 
-     * perfectly legal e.g. <code> (x -> { x.doSomething(); y.doSomethingElse(); });</code> 
+     * lambda is similar to an ordinary Java code block. Therefore multiple statements separated by ; are 
+     * perfectly legal e.g. {@code (x -> { x.doSomething(); y.doSomethingElse(); }); }
+     *  
+     * @param shapes - shapes to change color of 
+     * @param newColor - new color
+     * @param stringBuilder - string builder to append to
      *
      * @see Shape#setColor(Color)
      * @see Shape#toString()

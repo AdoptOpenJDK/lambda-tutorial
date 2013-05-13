@@ -1,14 +1,22 @@
 package org.adoptopenjdk.lambda.tutorial.exercise3;
 
+/**
+ * Class representing an author
+ */
 public final class Author {
-    public final String firstName;
-    public final String lastName;
+
+    private final String firstName;
+    private final String lastName;
 
     public Author(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
+    /**
+     * Return the firstName and LastName
+     * @return Full name
+     */
     public String fullName() {
         return firstName + " " + lastName;
     }
@@ -20,8 +28,8 @@ public final class Author {
 
         Author author = (Author) o;
 
-        if (!firstName.equals(author.firstName)) return false;
-        if (!lastName.equals(author.lastName)) return false;
+        if (!firstName.equals(author.getFirstName())) return false;
+        if (!lastName.equals(author.getLastName())) return false;
 
         return true;
     }
@@ -31,5 +39,13 @@ public final class Author {
         int result = firstName.hashCode();
         result = 31 * result + lastName.hashCode();
         return result;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 }
