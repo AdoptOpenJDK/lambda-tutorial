@@ -5,10 +5,24 @@ import org.hamcrest.Matcher;
 
 import java.util.function.Function;
 
+/**
+ * Helper utility for matching on features
+ */
 public final class FeatureMatchers {
 
     private FeatureMatchers() {}
 
+    /**
+     * TODO Explain this method
+     * 
+     * @param <FROM>
+     * @param <FEATURE>
+     * @param featureMatcher
+     * @param description
+     * @param name
+     * @param extractor
+     * @return A Matcher
+     */
     public static <FROM, FEATURE> Matcher<FROM> from(Matcher<FEATURE> featureMatcher,
                                                                String description,
                                                                String name,
