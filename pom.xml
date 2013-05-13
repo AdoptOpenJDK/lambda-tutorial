@@ -311,7 +311,7 @@
                     <execution>
                         <id>first</id>
                         <goals>
-                            <goal>check-file-header</goal>
+                            <goal>update-file-header</goal>
                         </goals>
                         <phase>process-sources</phase>
                         <configuration>
@@ -320,6 +320,7 @@
                                 <root>src/main/java</root>
                                 <root>src/test/java</root>
                             </roots>
+                            <verbose>false</verbose>
                         </configuration>
                     </execution>
                 </executions>
