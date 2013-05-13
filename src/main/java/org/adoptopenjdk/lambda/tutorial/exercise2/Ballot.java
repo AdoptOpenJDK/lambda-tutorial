@@ -15,7 +15,6 @@ public final class Ballot {
         this.isSpoiled = party == null;
     }
 
-    @SuppressWarnings("javadoc")
     @Override
     public String toString() {
         return "Ballot{" +
@@ -42,18 +41,10 @@ public final class Ballot {
         return new Ballot(null);
     }
 
-    /**
-     * True if the Ballot is spoiled, else false
-     * @return true if spoiled, else false
-     */
     public boolean isSpoiled() {
         return isSpoiled;
     }
 
-    /**
-     * Get the party belonging to this Ballot
-     * @return The party belonging to this Ballot
-     */
     public Party getParty() {
         return party;
     }

@@ -13,13 +13,9 @@ import java.util.Set;
  */
 public enum ElectoralDistrict {
 
-    /** Kate Moss's home district */
     CROYDON("CR"),
-    /** District line end point */
     BARKING("BA"),
-    /** Hipsterville */
     HACKNEY("HA"),
-    /** Edmonton */
     EDMONTON("ED");
 
     private final String prefix;
@@ -53,10 +49,6 @@ public enum ElectoralDistrict {
         return Collections.emptySet();
     }
 
-    /**
-     * Get the district's prefix
-     * @return prefix
-     */
     public String getPrefix() {
         return prefix;
     }

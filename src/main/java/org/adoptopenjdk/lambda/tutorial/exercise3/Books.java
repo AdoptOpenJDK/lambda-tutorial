@@ -13,6 +13,7 @@ public class Books {
     
     /**
      * Apply a mapping of Books to titles (Strings)
+     * 
      * @param books - books to transform
      * @return list of book titles
      */
@@ -23,7 +24,8 @@ public class Books {
     }
 
     /**
-     * Apply a mapping of Books to their author's full names 
+     * Apply a mapping of Books to their author's full names
+     *  
      * @param books - books to transform
      * @return list of author full names
      */
@@ -35,6 +37,7 @@ public class Books {
 
     /**
      * Apply a mapping of Books to a unique set of their publishers
+     * 
      * @param books - books to transform
      * @return set of publishers
      */

@@ -6,17 +6,13 @@ package org.adoptopenjdk.lambda.tutorial.exercise2;
  * @author Graham Allan grundlefleck at gmail dot com
  */
 public final class RegisteredVoter {
+
     private final String electorId;
 
-    /**
-     * Constructor
-     * @param electorId - elector Id
-     */
     public RegisteredVoter(String electorId) {
         this.electorId = electorId;
     }
 
-    @SuppressWarnings("javadoc")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -29,13 +25,11 @@ public final class RegisteredVoter {
         return true;
     }
 
-    @SuppressWarnings("javadoc")
     @Override
     public int hashCode() {
         return electorId.hashCode();
     }
 
-    @SuppressWarnings("javadoc")
     @Override
     public String toString() {
         return "RegisteredVoter{" +
@@ -43,10 +37,6 @@ public final class RegisteredVoter {
                 '}';
     }
 
-    /**
-     * Get the electorId for this voter
-     * @return elector ID
-     */
     public String getElectorId() {
         return electorId;
     }

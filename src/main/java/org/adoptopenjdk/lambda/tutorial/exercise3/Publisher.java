@@ -7,16 +7,10 @@ public final class Publisher {
     
     private final String name;
 
-    /**
-     * Constructor
-     * 
-     * @param name - publisher's name
-     */
     public Publisher(String name) {
         this.name = name;
     }
 
-    @SuppressWarnings("javadoc")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -29,16 +23,11 @@ public final class Publisher {
         return true;
     }
 
-    @SuppressWarnings("javadoc")
     @Override
     public int hashCode() {
         return name.hashCode();
     }
 
-    /**
-     * Get the publisher name
-     * @return name
-     */
     public String getName() {
         return name;
     }

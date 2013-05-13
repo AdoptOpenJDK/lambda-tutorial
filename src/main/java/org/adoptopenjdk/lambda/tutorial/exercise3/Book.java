@@ -9,20 +9,12 @@ public final class Book {
     private final Author author;
     private final Publisher publisher;
 
-    /**
-     * Constructor
-     * 
-     * @param title - book title
-     * @param author - book author
-     * @param publisher - book publisher
-     */
     public Book(String title, Author author, Publisher publisher) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
     }
 
-    @SuppressWarnings("javadoc")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,7 +29,6 @@ public final class Book {
         return true;
     }
 
-    @SuppressWarnings("javadoc")
     @Override
     public int hashCode() {
         int result = title.hashCode();
@@ -46,26 +37,14 @@ public final class Book {
         return result;
     }
 
-    /**
-     * Get the book title
-     * @return title
-     */
     public String getTitle() {
         return title;
     }
 
-    /**
-     * Get the author of the book
-     * @return author
-     */
     public Author getAuthor() {
         return author;
     }
 
-    /**
-     * Get the publisher of the book
-     * @return publisher
-     */
     public Publisher getPublisher() {
         return publisher;
     }
