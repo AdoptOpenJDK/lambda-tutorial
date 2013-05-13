@@ -17,10 +17,10 @@ public final class FeatureMatchers {
      * 
      * @param <FROM>
      * @param <FEATURE>
-     * @param featureMatcher
-     * @param description
-     * @param name
-     * @param extractor
+     * @param featureMatcher - Matcher that contains a feature
+     * @param description - the description of the feature
+     * @param name - the name of the feature
+     * @param extractor - the Function used to extract the feature
      * @return A Matcher
      */
     public static <FROM, FEATURE> Matcher<FROM> from(Matcher<FEATURE> featureMatcher,
