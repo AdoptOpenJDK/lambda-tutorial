@@ -7,9 +7,14 @@ package org.adoptopenjdk.lambda.tutorial.exercise1;
  * @author Graham Allan grundlefleck at gmail dot com
  */
 public enum Color {
+    /** Red */
     RED,
+    /** Blue */
     BLUE,
+    /** Green */
     GREEN,
+    /** Yellow */
     YELLOW,
+    /** Black */
     BLACK
 }

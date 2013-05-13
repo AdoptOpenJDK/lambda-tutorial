@@ -5,10 +5,15 @@ import static java.util.Arrays.asList;
 
 /**
  * Utility class to warn users if they have an incorrect environment
+ * 
  * @author Graham Allan grundlefleck at gmail dot com
  */
 public class ConfigureYourLambdaBuildOfJdk {
 
+    /**
+     * Utility method to warn users if they have an incorrect environment
+     * @param args - should be <code>null</code>
+     */
     public static void main(String... args) {
         List<String> messages =  asList(
             "If this source file does not compile, you have not configured your development setup correctly.",
