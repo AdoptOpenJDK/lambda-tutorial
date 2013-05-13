@@ -305,22 +305,22 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
                     <verbose>false</verbose>
+                    <licenseName>gpl_v2</licenseName>
                 </configuration>
                 <executions>
                     <execution>
                         <id>first</id>
                         <goals>
-                            <goal>check-file-header</goal>
+                            <goal>update-file-header</goal>
                         </goals>
                         <phase>process-sources</phase>
                         <configuration>
                             <licenseName>gpl_v2</licenseName>
-                            <!-- 
                             <roots>
                                 <root>src/main/java</root>
                                 <root>src/test/java</root>
                             </roots>
-                            -->
+                            <verbose>false</verbose>
                         </configuration>
                     </execution>
                 </executions>
