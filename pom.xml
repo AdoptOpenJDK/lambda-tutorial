@@ -305,6 +305,7 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
                     <verbose>false</verbose>
+                    <licenseName>gpl_v2</licenseName>
                 </configuration>
                 <executions>
                     <execution>
@@ -315,12 +316,10 @@
                         <phase>process-sources</phase>
                         <configuration>
                             <licenseName>gpl_v2</licenseName>
-                            <!-- 
                             <roots>
                                 <root>src/main/java</root>
                                 <root>src/test/java</root>
                             </roots>
-                            -->
                         </configuration>
                     </execution>
                 </executions>
