@@ -42,4 +42,4 @@ lambda-tutorial will try to track against the newest version available. If you f
 - [IntelliJ IDEA deutsche Anleitung (u.a. Windows)](https://github.com/AdoptOpenJDK/lambda-tutorial/wiki/IntelliJ-IDEA-Einrichtung)
 - [Eclipse Kepler 4.3 on Windows](https://github.com/AdoptOpenJDK/lambda-tutorial/wiki/Eclipse-Lambda-EA-Setup)
 
-<b>Note: we are hoping the instructions are not too sensitive to the OSes on which they have been performed on.</b>
+<b>Note: we are hoping the instructions are not too sensitive to the OSes on which they have been performed.</b>
