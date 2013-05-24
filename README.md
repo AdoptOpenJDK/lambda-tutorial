@@ -42,4 +42,4 @@ lambda-tutorial will try to track against the newest version available. If you f
 - [IntelliJ IDEA on Windows (Deutsch)](https://github.com/AdoptOpenJDK/lambda-tutorial/wiki/IntelliJ-IDEA-Einrichtung)
 - [Eclipse Juno on Windows](https://github.com/AdoptOpenJDK/lambda-tutorial/wiki/Eclipse-Lambda-EA-Setup)
 
-*Note: we are hoping the instructions are not too sensitive to the OSes on which they have been applied.
+<b>Note: we are hoping the instructions are not too sensitive to the OSes on which they have been applied.</b>
