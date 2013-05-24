@@ -39,6 +39,6 @@ lambda-tutorial will try to track against the newest version available. If you f
 ### IDE Setup
 - [IntelliJ IDEA on Ubuntu](https://github.com/AdoptOpenJDK/lambda-tutorial/wiki/IntelliJ-IDEA-on-Ubuntu-%5BLinux%5D)
 - [IntelliJ IDEA on MacOS](https://github.com/AdoptOpenJDK/lambda-tutorial/wiki/IntelliJ-IDEA-on-MacOS)
-- [IntelliJ IDEA (Deutsche)](https://github.com/AdoptOpenJDK/lambda-tutorial/wiki/IntelliJ-IDEA-Einrichtung)
+- [IntelliJ IDEA on Windows (Deutsche)](https://github.com/AdoptOpenJDK/lambda-tutorial/wiki/IntelliJ-IDEA-Einrichtung)
 - Eclipse Juno
 
