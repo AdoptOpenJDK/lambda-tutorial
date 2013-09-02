@@ -38,6 +38,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -242,13 +243,10 @@ public class Exercise_2_Test {
      * Ensure that the Set returned cannot be modified by callers by wrapping the result
      * in Collections.unmodifiableSet().
      * </p>
-     * <p>
-     * The Streams API does not provide a way to wrap the final result, as one of its operations. So just wrap the
-     * result in an unmodifiableSet yourself. Sometimes it's just as important to know what an API _doesn't_ do.
-     * </p>
      * @throws ClassNotFoundException If the lambdas binary build no longer contains the class
      * @see Stream#collect(java.util.stream.Collector)
-     * @see java.util.stream.Collectors#toSet()
+     * @see Collectors#collectingAndThen(Collector, Function)
+     * @see Collectors#toSet()
      * @see Collections#unmodifiableSet(java.util.Set)
      */
     @Test public void setOfVotersInDistrictInUnmodifiableSet() throws ClassNotFoundException {
