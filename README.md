@@ -32,7 +32,7 @@ The current tutorial is known to work with the following JDK build:
 
 |JDK Build Number|Released On |
 |:---------------|:---------- |
-|b88             |May 09, 2013|
+|b105             |Aug 26, 2013|
 
 lambda-tutorial will try to track against the newest version available. If you find that you are working with a newer version of the Lambda JDK and the tutorial does not compile or run, please file an issue.
 
