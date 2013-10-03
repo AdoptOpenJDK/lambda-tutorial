@@ -22,7 +22,16 @@ package org.adoptopenjdk.lambda.tutorial;
  * #L%
  */
 
+import org.adoptopenjdk.lambda.tutorial.exercise4.Document;
+import org.adoptopenjdk.lambda.tutorial.exercise4.Document.Page;
+import org.hamcrest.Matchers;
+import org.junit.Test;
+
+import java.util.Arrays;
 import java.util.function.Consumer;
+
+import static org.adoptopenjdk.lambda.tutorial.util.CodeUsesMethodReferencesMatcher.usesMethodReferences;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Exercise 4 - Method References
@@ -109,6 +118,7 @@ import java.util.function.Consumer;
  * </p>
  * <p>
  * <em>Constructor belonging to a particular class</em>
+ * <br>
  * By now, we know how to use method references for static methods and instance methods, that leaves an odd case:
  * constructors.
  * <p>
@@ -134,5 +144,30 @@ import java.util.function.Consumer;
 @SuppressWarnings("unchecked")
 public class Exercise_4_Test {
 
+    /**
+     * The <code>Documents</code> class has a method which transforms a list of <code>Document</code> into a list of
+     * their titles. The implementation has already been filled out, but it uses a lambda, as in:
+     * <code>.map(document -> document.getTitle())</code>
+     * <br>
+     * Instead of using a lambda, use a method reference instead.
+     *
+     * @see Documents#titlesOf(Document...)
+     * @see Document#getTitle()
+     *
+     */
+    @Test
+    public void getListOfDocumentTitlesUsingInstanceMethodReference() {
+        Document expenses = new Document("My Expenses",
+                Arrays.asList(new Page("LJC Open Conference ticket: £25"), new Page("Beer stipend: £100")));
+        Document toDoList = new Document("My ToDo List",
+                Arrays.asList(new Page("Build a todo app"), new Page("Pick up dry cleaning")));
+        Document certificates = new Document("My Certificates",
+                Arrays.asList(new Page("Oracle Certified Professional"), new Page("Swimming 10m")));
+
+        assertThat(Documents.titlesOf(expenses, toDoList, certificates),
+                Matchers.contains("My Expenses", "My ToDo List", "My Certificates"));
+        assertThat(Documents.class, usesMethodReferences("getTitle"));
+
+    }
 
 }
