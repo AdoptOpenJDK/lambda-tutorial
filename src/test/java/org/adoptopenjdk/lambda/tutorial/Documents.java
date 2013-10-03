@@ -36,7 +36,7 @@ public class Documents {
      */
     public static List<String> titlesOf(Document... documents) {
         return Arrays.stream(documents)
-                .map(d -> d.getTitle())
+                .map(Document::getTitle)
                 .collect(toList());
     }
 }
