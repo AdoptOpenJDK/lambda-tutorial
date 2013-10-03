@@ -59,7 +59,7 @@ import java.util.function.Consumer;
  * <ol>
  *     <li>Static method belonging to a particular class</li>
  *     <li>Instance method bound to a particular object instance</li>
- *     <li>Instance method bound to an particular class</li>
+ *     <li>Instance method bound to a particular class</li>
  *     <li>Constructor belonging to a particular class</li>
  * </ol>
  * </p>
@@ -71,8 +71,64 @@ import java.util.function.Consumer;
  * to the Printers class. Here the argument list of the lambda must match the argument list of the method, the first
  * argument to the lambda is the first argument passed into the method.
  * </p>
+ *
+ * <p>
  * <em>Instance method bound to a particular object instance</em>
- * TODO: Carry on from here.
+ * <br>
+ * It's possible to use a method invoked an a specific instance of a class. Consider the following code:
+ * <pre>
+ * public class Document {
+ *     // field, constructor, etc
+ *
+ *     public String getPageContent(int pageNumber) {
+ *         return this.pages.get(pageNumber).getContent();
+ *     }
+ * }
+ *
+ * public static void printPages(Document doc, int[] pageNumbers) {
+ *     Arrays.stream(pageNumbers).map(doc::getPageContent).forEach(Printers::print);
+ * }
+ * </pre>
+ *
+ * In this case, when the <code>map</code> operation runs, the method <code>getPageContent</code> will
+ * be invoked <i>on the <code>doc</code> instance</i>. Regardless of the current page number at that point
+ * of the stream, it will always be transformed by calling the equivalent of <code>doc.getPageContent(i)</code>.
+ * </p>
+ * <p>
+ * <em>Instance method belonging to a particular class</em>
+ * <br>
+ * When iterating over a stream of objects, you can invoke a method on each object by using an instance method
+ * reference. As in this code:
+ * <pre>
+ * public static void printDocuments(List&lt;Page&gt; pages) {
+ *     pages.stream().map(Page::getContent).forEach(Printers::print);
+ * }
+ * </pre>
+ * In this case the method <code>getContent</code> will still be invoked on an instance of <code>Page</code>, however,
+ * it will be invoked <em>on each <code>Page</code> instance</em> that is mapped over.
+ * </p>
+ * <p>
+ * <em>Constructor belonging to a particular class</em>
+ * By now, we know how to use method references for static methods and instance methods, that leaves an odd case:
+ * constructors.
+ * <p>
+ * While we don't invoke a constructor like a static method, it is useful to think of it that way. Currently we write:
+ * <code>Page p = new Page("content");</code> but imagine we changed the syntax of the Java language to allow this:
+ * <code>Page p = Page.new("content");</code>. We can consider the <code>Page.new</code> method to have the exact
+ * semantics of a constructor, that is, use a reference to the class object to invoke the constructor method and return
+ * the newly created instance as the result of <code>new</code>.
+ * </p>
+ * With that in mind, consider the following code:
+ * <pre>
+ * public static Stream&lt;Page&gt; createPagesFrom(Stream&lt;String&gt; contents) {
+ *     return contents.map(Page::new).
+ * }
+ * </pre>
+ * The method will return a <code>Stream</code> of newly constructed <code>Page</code> objects. <code>new</code> is
+ * still a special keyword in Java, but can now be used in the method reference construct. Note that just like other
+ * method references, the method signature of the constructor must match the types fed by the <code>map</code>
+ * operation.
+ * </p>
  *
  */
 @SuppressWarnings("unchecked")
