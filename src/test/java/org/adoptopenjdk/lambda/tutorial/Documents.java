@@ -61,12 +61,15 @@ public class Documents {
     }
 
     public static String print(Document document, PagePrinter pagePrinter) {
+        // No equivalent in pre-Java 8
         StringBuilder output = new StringBuilder();
 
         output.append(pagePrinter.printTitlePage(document));
-        document.getPages().stream()
-                .map(p -> pagePrinter.printPage(p))
-                .forEach(s -> output.append(s));
+
+        for (Page page: document.getPages()) {
+            String content = pagePrinter.printPage(page); // PagePrinter::printPage
+            output.append(content); // StringBuilder::append
+        }
 
         return output.toString();
     }
