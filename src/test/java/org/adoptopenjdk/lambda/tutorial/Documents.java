@@ -50,6 +50,11 @@ public class Documents {
     }
 
     public static List<Integer> pageCharacterCounts(Document document) {
-        return document.getPages().stream().map(doc -> Documents.characterCount(doc)).collect(toList());
+        // No equivalent in pre-Java 8
+        List<Integer> characterCounts = new ArrayList<>();
+        for (Page page: document.getPages()) {
+            characterCounts.add(Documents.characterCount(page)); // Documents::characterCount
+        }
+        return characterCounts;
     }
 }
