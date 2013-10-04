@@ -1,5 +1,27 @@
 package org.adoptopenjdk.lambda.tutorial.exercise4;
 
+/*
+ * #%L
+ * lambda-tutorial
+ * %%
+ * Copyright (C) 2013 Adopt OpenJDK
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 2 of the 
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-2.0.html>.
+ * #L%
+ */
+
 import java.util.Arrays;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
@@ -18,21 +40,5 @@ public class Printers {
 
     public static Stream<Page> createPagesFrom(Stream<String> contents) {
         return contents.map(Page::new);
-    }
-
-
-    public static void main(String... args) {
-        Page p1 = new Page("this is the first page");
-        Page p2 = new Page("this is the second page");
-
-        Document myDocument = new Document(Arrays.asList(p1, p2));
-
-        Printers.printPages(myDocument, 0, 1);
-
-        List<Page> pages = Arrays.asList(p1, p2);
-        pages.stream().map(Page::getContent).forEach(Printers::print);
-
-        Stream<Page> pagesFromContent = createPagesFrom(Arrays.asList("a", "b").stream());
-        System.out.println(pagesFromContent.collect(toList()));
     }
 }

@@ -24,6 +24,7 @@ package org.adoptopenjdk.lambda.tutorial;
 
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,8 +36,11 @@ public class Documents {
      * Return the titles from a list of documents.
      */
     public static List<String> titlesOf(Document... documents) {
-        return Arrays.stream(documents)
-                .map(d -> d.getTitle())
-                .collect(toList());
+        // No equivalent in pre-Java 8
+        List<String> titles = new ArrayList<>();
+        for (Document doc: documents) {
+            titles.add(doc.getTitle()); // Document::getTitle
+        }
+        return titles;
     }
 }
