@@ -24,7 +24,11 @@ package org.adoptopenjdk.lambda.tutorial;
 
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document;
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document.Page;
+
+import static java.lang.String.format;
 import static org.hamcrest.Matchers.*;
+
+import org.adoptopenjdk.lambda.tutorial.exercise4.PagePrinter;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -32,6 +36,7 @@ import java.util.function.Consumer;
 
 import static org.adoptopenjdk.lambda.tutorial.util.CodeUsesMethodReferencesMatcher.usesMethodReferences;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.adoptopenjdk.lambda.tutorial.util.StringWithComparisonMatcher.*;
 
 /**
  * Exercise 4 - Method References
@@ -189,6 +194,38 @@ public class Exercise_4_Test {
 
         assertThat(Documents.pageCharacterCounts(diary), contains(21, 17, 25));
         assertThat(Documents.class, usesMethodReferences("characterCount"));
+    }
+
+    /**
+     * The <code>Documents</code> class has a method which takes a <code>PagePrinter</code> and renders a
+     * <code>Document</code> to text. The method uses two lambda expressions where method references can be used. In
+     * this case the method references are to methods belonging to a particular instance object.
+     * <br>
+     * Change {@link Documents#print(Document, PagePrinter)} to use method references to invoke instance methods of
+     * particular objects.
+     *
+     * @see Documents#print(Document, PagePrinter)
+     * @see StringBuilder#append
+     * @see PagePrinter#printPage(Page)
+     *
+     */
+    @Test
+    public void printContentsOfDocumentUsingReferenceOfInstanceMethodBeloningToAnObject() {
+        Document diary = new Document("My Diary", Arrays.asList(
+                new Page("Today I went shopping"),
+                new Page("Today I did maths"),
+                new Page("Today I wrote in my diary")));
+
+        assertThat(Documents.print(diary, new PagePrinter("----")),
+                isString(format("My Diary%n" +
+                                "----%n" +
+                                "Today I went shopping%n" +
+                                "----%n" +
+                                "Today I did maths%n" +
+                                "----%n" +
+                                "Today I wrote in my diary%n" +
+                                "----%n")));
+        assertThat(Documents.class, allOf(usesMethodReferences("printPage"), usesMethodReferences("append")));
     }
 
 }
