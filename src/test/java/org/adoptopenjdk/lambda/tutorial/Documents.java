@@ -58,8 +58,8 @@ public class Documents {
 
         output.append(pagePrinter.printTitlePage(document));
         document.getPages().stream()
-                .map(p -> pagePrinter.printPage(p))
-                .forEach(s -> output.append(s));
+                .map(pagePrinter::printPage)
+                .forEach(output::append);
 
         return output.toString();
     }
