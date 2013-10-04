@@ -24,11 +24,13 @@ package org.adoptopenjdk.lambda.tutorial;
 
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document;
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document.Page;
+import org.adoptopenjdk.lambda.tutorial.exercise4.PagePrinter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
 
 public class Documents {
@@ -56,5 +58,16 @@ public class Documents {
             characterCounts.add(Documents.characterCount(page)); // Documents::characterCount
         }
         return characterCounts;
+    }
+
+    public static String print(Document document, PagePrinter pagePrinter) {
+        StringBuilder output = new StringBuilder();
+
+        output.append(pagePrinter.printTitlePage(document));
+        document.getPages().stream()
+                .map(p -> pagePrinter.printPage(p))
+                .forEach(s -> output.append(s));
+
+        return output.toString();
     }
 }
