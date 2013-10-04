@@ -23,6 +23,7 @@ package org.adoptopenjdk.lambda.tutorial;
  */
 
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document;
+import org.adoptopenjdk.lambda.tutorial.exercise4.Document.Page;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,5 +43,13 @@ public class Documents {
             titles.add(doc.getTitle()); // Document::getTitle
         }
         return titles;
+    }
+
+    public static Integer characterCount(Page page) {
+        return page.getContent().length();
+    }
+
+    public static List<Integer> pageCharacterCounts(Document document) {
+        return document.getPages().stream().map(doc -> Documents.characterCount(doc)).collect(toList());
     }
 }
