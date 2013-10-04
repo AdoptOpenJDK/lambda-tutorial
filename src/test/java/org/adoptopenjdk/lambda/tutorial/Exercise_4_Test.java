@@ -156,7 +156,7 @@ public class Exercise_4_Test {
      *
      */
     @Test
-    public void getListOfDocumentTitlesUsingInstanceMethodReference() {
+    public void getListOfDocumentTitlesUsingReferenceOfInstanceMethodBelongingToAClass() {
         Document expenses = new Document("My Expenses",
                 Arrays.asList(new Page("LJC Open Conference ticket: £25"), new Page("Beer stipend: £100")));
         Document toDoList = new Document("My ToDo List",
