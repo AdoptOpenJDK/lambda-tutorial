@@ -24,7 +24,7 @@ package org.adoptopenjdk.lambda.tutorial;
 
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document;
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document.Page;
-import org.hamcrest.Matchers;
+import static org.hamcrest.Matchers.*;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -165,9 +165,30 @@ public class Exercise_4_Test {
                 Arrays.asList(new Page("Oracle Certified Professional"), new Page("Swimming 10m")));
 
         assertThat(Documents.titlesOf(expenses, toDoList, certificates),
-                Matchers.contains("My Expenses", "My ToDo List", "My Certificates"));
+                contains("My Expenses", "My ToDo List", "My Certificates"));
         assertThat(Documents.class, usesMethodReferences("getTitle"));
 
+    }
+
+    /**
+     * The <code>Documents</code> class has a method which calculates a list of the character counts of Pages in a
+     * Document. The method <code>characterCount</code> can be applied to each Page to calculate the number of
+     * characters in that page. Currently it is invoked using a lambda.
+     * <br>
+     * Change to use a method reference which uses the static <code>characterCount</code> method.
+     *
+     * @see Documents#pageCharacterCounts(Document)
+     * @see Documents#characterCount(Page) 
+     */
+    @Test
+    public void getListOfPageCharacterCountsFromDocumentUsingReferenceOfStaticMethodBelongingToAClass() {
+        Document diary = new Document("My Diary", Arrays.asList(
+                new Page("Today I went shopping"),
+                new Page("Today I did maths"),
+                new Page("Today I wrote in my diary")));
+
+        assertThat(Documents.pageCharacterCounts(diary), contains(21, 17, 25));
+        assertThat(Documents.class, usesMethodReferences("characterCount"));
     }
 
 }

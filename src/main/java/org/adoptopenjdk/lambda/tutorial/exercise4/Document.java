@@ -35,8 +35,8 @@ public final class Document {
         this.pages = Collections.unmodifiableList(new ArrayList<>(pages));
     }
 
-    public String getPageContent(Integer pageNumber) {
-        return this.pages.get(pageNumber).getContent();
+    public List<Page> getPages() {
+        return this.pages;
     }
 
     public String getTitle() {
