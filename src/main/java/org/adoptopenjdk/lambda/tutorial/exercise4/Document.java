@@ -58,8 +58,8 @@ public final class Document {
 
     public Document copyWithFooter() {
         return getPages().stream()
-            .map(page -> appendFooter(page))
-            .collect(collectingAndThen(Collectors.<Page>toList(), pages -> copyWithPages(pages)));
+            .map(this::appendFooter)
+            .collect(collectingAndThen(Collectors.<Page>toList(), this::copyWithPages));
     }
 
     public static final class Page {
