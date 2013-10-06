@@ -242,12 +242,9 @@ public class Exercise_4_Test {
      */
     @Test
     public void transformPagesToHaveFooterUsingReferenceOfInstanceMethodBelonginToThisObject() {
-        Page blankPage = new Page("");
         Document diary = new Document("My Diary", Arrays.asList(
                 new Page("Today I went shopping"),
-                blankPage,
                 new Page("Today I did maths"),
-                blankPage,
                 new Page("Today I wrote in my diary")));
 
         Document diaryWithFooters = diary.copyWithFooter();
