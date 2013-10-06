@@ -29,6 +29,8 @@ import static java.lang.String.format;
 import static org.hamcrest.Matchers.*;
 
 import org.adoptopenjdk.lambda.tutorial.exercise4.PagePrinter;
+import org.adoptopenjdk.lambda.tutorial.util.FeatureMatchers;
+import org.hamcrest.Matcher;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -228,4 +230,33 @@ public class Exercise_4_Test {
         assertThat(Documents.class, allOf(usesMethodReferences("printPage"), usesMethodReferences("append")));
     }
 
+
+    /**
+     * The <code>Document</code> class has a method which can create a new Document where all the pages have had a
+     * footer appended to it of the format "Document: {title}". The method uses two lambda expressions where method
+     * references can be used. In this case the method references are to methods belonging to <code>this</code> object
+     * instance. That is, the methods to be invoked should be invoked on <code>this</code>.
+     * <br>
+     * Change {@link Document#copyWithFooter()} to use method references to invoke instance methods on <code>this</code>
+     * instance.
+     */
+    @Test
+    public void transformPagesToHaveFooterUsingReferenceOfInstanceMethodBelonginToThisObject() {
+        Page blankPage = new Page("");
+        Document diary = new Document("My Diary", Arrays.asList(
+                new Page("Today I went shopping"),
+                blankPage,
+                new Page("Today I did maths"),
+                blankPage,
+                new Page("Today I wrote in my diary")));
+
+        Document diaryWithFooters = diary.copyWithFooter();
+
+        assertThat(diaryWithFooters.getPages(), everyItem(pageEndingWith("Document: My Diary")));
+        assertThat(Document.class, allOf(usesMethodReferences("appendFooter"), usesMethodReferences("copyWithPages")));
+    }
+
+    private static Matcher<Page> pageEndingWith(String ending) {
+        return FeatureMatchers.from(endsWith(ending), "page containing", "contents", Page::getContent);
+    }
 }
