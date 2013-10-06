@@ -57,9 +57,12 @@ public final class Document {
     }
 
     public Document copyWithFooter() {
-        return getPages().stream()
-            .map(page -> appendFooter(page))
-            .collect(collectingAndThen(Collectors.<Page>toList(), pages -> copyWithPages(pages)));
+        // No equivalent in pre-Java 8
+        List<Page> pagesWithFooter = new ArrayList<>();
+        for (Page page: getPages()) {
+            pagesWithFooter.add(appendFooter(page)); // this::appendFooter
+        }
+        return copyWithPages(pagesWithFooter); // this::copyWithPages
     }
 
     public static final class Page {
