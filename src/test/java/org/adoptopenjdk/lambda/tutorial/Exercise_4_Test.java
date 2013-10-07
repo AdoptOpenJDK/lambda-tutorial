@@ -24,11 +24,8 @@ package org.adoptopenjdk.lambda.tutorial;
 
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document;
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document.Page;
-
-import static java.lang.String.format;
-import static org.hamcrest.Matchers.*;
-
 import org.adoptopenjdk.lambda.tutorial.exercise4.PagePrinter;
+import org.adoptopenjdk.lambda.tutorial.exercise4.Translator;
 import org.adoptopenjdk.lambda.tutorial.exercise4.Translator.Languages;
 import org.adoptopenjdk.lambda.tutorial.util.FeatureMatchers;
 import org.hamcrest.Matcher;
@@ -37,9 +34,14 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
+import static java.lang.String.format;
 import static org.adoptopenjdk.lambda.tutorial.util.CodeUsesMethodReferencesMatcher.usesMethodReferences;
+import static org.adoptopenjdk.lambda.tutorial.util.StringWithComparisonMatcher.isString;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.adoptopenjdk.lambda.tutorial.util.StringWithComparisonMatcher.*;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.Matchers.everyItem;
 
 /**
  * Exercise 4 - Method References
@@ -255,6 +257,17 @@ public class Exercise_4_Test {
     }
 
 
+    /**
+     * The <code>Documents</code> class has a method which can translate a document into another language. The method
+     * uses a lambda expression to construct each translated <code>Page</code>, where it could use a method reference
+     * to Page's constructor.
+     * <br>
+     * Change {@link Documents#translate} to use a method reference to construct each translated <code>Page</code>.
+     *
+     * @see Documents#translate(Document, Translator)
+     * @see Translator.Languages
+     * @see Page
+     */
     @Test
     public void createNewDocumentWithTranslatedPagesUsingReferenceOfConstructorMethod() {
         Document diary = new Document("My Diary", Arrays.asList(
