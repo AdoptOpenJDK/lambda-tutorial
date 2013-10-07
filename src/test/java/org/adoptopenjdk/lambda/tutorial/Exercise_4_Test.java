@@ -29,6 +29,7 @@ import static java.lang.String.format;
 import static org.hamcrest.Matchers.*;
 
 import org.adoptopenjdk.lambda.tutorial.exercise4.PagePrinter;
+import org.adoptopenjdk.lambda.tutorial.exercise4.Translator.Languages;
 import org.adoptopenjdk.lambda.tutorial.util.FeatureMatchers;
 import org.hamcrest.Matcher;
 import org.junit.Test;
@@ -253,7 +254,28 @@ public class Exercise_4_Test {
         assertThat(Document.class, allOf(usesMethodReferences("appendFooter"), usesMethodReferences("copyWithPages")));
     }
 
+
+    @Test
+    public void createNewDocumentWithTranslatedPagesUsingReferenceOfConstructorMethod() {
+        Document diary = new Document("My Diary", Arrays.asList(
+                new Page("Today I went shopping"),
+                new Page("Today I did maths"),
+                new Page("Today I wrote in my diary")));
+
+        Document translated = Documents.translate(diary, Languages.REVERSISH);
+
+        assertThat(translated.getPages(),
+                contains(pageContaining("gnippohs tnew I yadoT"),
+                        pageContaining("shtam did I yadoT"),
+                        pageContaining("yraid ym ni etorw I yadoT")));
+        assertThat(Documents.class, usesMethodReferences("new"));
+    }
+
     private static Matcher<Page> pageEndingWith(String ending) {
         return FeatureMatchers.from(endsWith(ending), "page containing", "contents", Page::getContent);
+    }
+
+    private static Matcher<Page> pageContaining(String content) {
+        return FeatureMatchers.from(isString(content), "page containing", "contents", Page::getContent);
     }
 }

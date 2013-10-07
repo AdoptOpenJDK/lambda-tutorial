@@ -25,11 +25,13 @@ package org.adoptopenjdk.lambda.tutorial;
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document;
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document.Page;
 import org.adoptopenjdk.lambda.tutorial.exercise4.PagePrinter;
+import org.adoptopenjdk.lambda.tutorial.exercise4.Translator;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.String.format;
+import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
 
 public class Documents {
@@ -62,5 +64,13 @@ public class Documents {
                 .forEach(s -> output.append(s));
 
         return output.toString();
+    }
+
+    public static Document translate(Document document, Translator translator) {
+        return document.getPages().stream()
+                .map(page -> page.getContent())
+                .map(content -> translator.translate(content))
+                .map(translated -> new Page(translated))
+                .collect(collectingAndThen(toList(), pages -> new Document(document.getTitle(), pages)));
     }
 }
