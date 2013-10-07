@@ -71,6 +71,7 @@ public class Documents {
                 .map(page -> page.getContent())
                 .map(content -> translator.translate(content))
                 .map(translated -> new Page(translated))
-                .collect(collectingAndThen(toList(), pages -> new Document(document.getTitle(), pages)));
+                .collect(collectingAndThen(toList(),
+                                           pages -> new Document(translator.translate(document.getTitle()), pages)));
     }
 }
