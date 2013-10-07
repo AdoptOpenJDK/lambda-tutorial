@@ -77,11 +77,16 @@ public class Documents {
     }
 
     public static Document translate(Document document, Translator translator) {
-        return document.getPages().stream()
-                .map(page -> page.getContent())
-                .map(content -> translator.translate(content))
-                .map(translated -> new Page(translated))
-                .collect(collectingAndThen(toList(),
-                                           pages -> new Document(translator.translate(document.getTitle()), pages)));
+        // No equivalent in pre-Java 8
+
+        List<Page> translatedPages = new ArrayList<>();
+        for (Page page: document.getPages()) {
+            String content = page.getContent();
+            String translatedContent = translator.translate(content);
+            Page translatedPage = new Page(translatedContent); // Page::new
+            translatedPages.add(translatedPage);
+        }
+
+        return new Document(translator.translate(document.getTitle()), translatedPages);
     }
 }
