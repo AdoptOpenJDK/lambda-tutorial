@@ -62,7 +62,7 @@ import static org.hamcrest.Matchers.everyItem;
  *     public static void print(String s) {...}
  * }
  * </pre>
- * Note that the <code>printNumber</code> method takes a single <code>String</code> parameter, and has a void return
+ * Note that the <code>print</code> method takes a single <code>String</code> parameter, and has a void return
  * type. Although declared using different type names, this is the same signature as {@link Consumer}, the functional
  * interface that's passed to {@link Iterable#forEach(Consumer)}. Since they match, we can use a reference to the
  * <code>print</code> method when invoking forEach on a list of Strings, like so:
