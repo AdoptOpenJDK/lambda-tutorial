@@ -24,6 +24,7 @@ package org.adoptopenjdk.lambda.tutorial;
 
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document;
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document.Page;
+import org.adoptopenjdk.lambda.tutorial.exercise4.Documents;
 import org.adoptopenjdk.lambda.tutorial.exercise4.PagePrinter;
 import org.adoptopenjdk.lambda.tutorial.exercise4.Translator;
 import org.adoptopenjdk.lambda.tutorial.exercise4.Translator.Languages;
