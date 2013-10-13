@@ -1,4 +1,4 @@
-package org.adoptopenjdk.lambda.tutorial;
+package org.adoptopenjdk.lambda.tutorial.exercise4;
 
 /*
  * #%L
@@ -22,10 +22,7 @@ package org.adoptopenjdk.lambda.tutorial;
  * #L%
  */
 
-import org.adoptopenjdk.lambda.tutorial.exercise4.Document;
 import org.adoptopenjdk.lambda.tutorial.exercise4.Document.Page;
-import org.adoptopenjdk.lambda.tutorial.exercise4.PagePrinter;
-import org.adoptopenjdk.lambda.tutorial.exercise4.Translator;
 
 import java.util.Arrays;
 import java.util.List;
