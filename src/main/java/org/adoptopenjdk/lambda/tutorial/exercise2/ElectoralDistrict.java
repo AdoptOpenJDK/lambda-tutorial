@@ -62,10 +62,10 @@ public enum ElectoralDistrict {
     /**
      * Complete this method to pass Exercise_2_Test#removeAllSpoiledBallots()
      * 
-     * @param votes - votes to filter
+     * @param ballots - ballots to filter
      * @return filtered set of unspoiled ballots
      */
-    public static Set<Ballot> unspoiledBallots(Set<Ballot> votes) {
+    public static Set<Ballot> unspoiledBallots(Set<Ballot> ballots) {
         // [your code here]
 
         return Collections.emptySet();
