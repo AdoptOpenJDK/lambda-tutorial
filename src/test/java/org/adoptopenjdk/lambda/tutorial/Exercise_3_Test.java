@@ -153,7 +153,7 @@ public class Exercise_3_Test {
     /**
      * Use Stream.map() to convert a collection of books into a collection of the author's full names.
      *
-     * Note that it is possible to chain calls to map(). E.g. myCollection.map(...).map(...).collect(). That may come
+     * Note that it is possible to chain calls to map(). E.g. myCollection.stream().map(...).collect(). That may come
      * in useful when generating an author's full name.
      *
      * @see Author#fullName()
