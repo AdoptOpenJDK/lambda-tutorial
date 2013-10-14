@@ -155,10 +155,10 @@ public class Exercise_1_Test {
         List<Shape> myShapes = Arrays.asList(new Shape(BLUE), new Shape(BLACK), new Shape(YELLOW));
         StringBuilder builder = new StringBuilder();
 
-        Shapes.changeColorAndMakeStringOfOldColors(myShapes, GREEN, builder);
+        Shapes.changeColorAndMakeStringOfOldColors(myShapes, RED, builder);
 
         assertThat(myShapes, hasSize(3));
-        assertThat(myShapes, everyItem(hasColor(GREEN)));
+        assertThat(myShapes, everyItem(hasColor(RED)));
         assertThat(builder.toString(), equalTo("[a BLUE shape][a BLACK shape][a YELLOW shape]"));
     }
 
