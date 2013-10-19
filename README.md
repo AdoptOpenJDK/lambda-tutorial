@@ -18,7 +18,7 @@ To follow the exercises:
  1. Internal vs External Iteration (the forEach method)
  2. Filtering and Collecting
  3. Mapping
- 4. (In Progress) Method References
+ 4. Method References
 
 [More to come]
 
