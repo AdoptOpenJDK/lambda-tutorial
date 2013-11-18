@@ -23,10 +23,22 @@ package org.adoptopenjdk.lambda.tutorial;
  */
 
 
+import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.MusicLibrary;
+import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.Song;
+import org.adoptopenjdk.lambda.tutorial.exercise5.thirdpartyplugin.LocalFilesystemMusicLibrary;
+import org.adoptopenjdk.lambda.tutorial.util.FeatureMatchers;
+import org.adoptopenjdk.lambda.tutorial.util.HasDefaultMethod;
+import org.hamcrest.Matcher;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.function.Consumer;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Exercise 5 - Default Methods
@@ -35,7 +47,7 @@ import java.util.Map;
  * JDK Collections library as their first main user. They permit adding concrete methods, with an implementation,
  * to Java interfaces. Prior to JDK 8, every method on an interface had to be abstract, with implementations provided
  * by classes. With JDK 8, it's possible to declare the following interface:
- *
+ * <p/>
  * <code>
  * <pre>
  * // (stripped down version of the real Iterable.java)
@@ -131,7 +143,7 @@ import java.util.Map;
  * <br>
  * It should be noted that ambiguities are <em>never</em> resolved by the order in which interface implementations are
  * declared (such as with Scala's traits). They must always be resolved explicitly in the subtype.
- *
+ * <p/>
  * <h3>Do default methods mean Java supports multiple inheritance?</h3>
  * <p>
  * In a way. Java has always supported multiple inheritance of interfaces, previously this did not include any of the
@@ -157,12 +169,31 @@ import java.util.Map;
  * multiple inheritance of state, and global mutable state should be avoided.
  * </p>
  *
+ * @see Iterable#forEach(Consumer)
  */
-
+@SuppressWarnings("unchecked")
 public class Exercise_5_Test {
 
-    @Test public void firstTest() {
+    @Test
+    public void useDefaultMethodToReturnShuffledPlaylist() {
+        MusicLibrary library = new LocalFilesystemMusicLibrary(
+            new Song("A Change Is Gonna Come", "Sam Cooke"),
+            new Song("Bad Moon Rising", "Creedence Clearwater Revival"),
+            new Song("Candy", "Paulo Nutini"),
+            new Song("Desolation Row", "Bob Dylan"),
+            new Song("Eleanor Rigby", "The Beatles")
+        );
 
+        assertThat(library.shuffled(),
+            containsInAnyOrder(songCalled("Candy"), songCalled("Eleanor Rigby"), songCalled("Desolation Row"),
+                               songCalled("A Change Is Gonna Come"), songCalled("Bad Moon Rising")));
+
+        assertThat(MusicLibrary.class, HasDefaultMethod.called("shuffled"));
+    }
+
+
+    private static Matcher<Song> songCalled(String title) {
+        return FeatureMatchers.from(equalTo(title), "a song called", "title", Song::getTitle);
     }
 
 }
