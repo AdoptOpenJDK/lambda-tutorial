@@ -23,11 +23,26 @@ package org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer;
  */
 
 import java.util.Collection;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 public interface MusicLibrary {
+
+    /**
+     * @return every song in the collection, in no specified order.
+     */
     Collection<Song> allSongs();
 
-    default Collection<Song> shuffled() {
-        return allSongs();
+
+
+    /**
+     * Will sort a given collection of Songs by artist.
+     */
+    static class SongByArtistSorter {
+        public static List<Song> sort(Collection<Song> songs) {
+            return songs.stream().sorted((song1, song2) -> song1.getArtist().compareTo(song2.getArtist()))
+                        .collect(toList());
+        }
     }
 }

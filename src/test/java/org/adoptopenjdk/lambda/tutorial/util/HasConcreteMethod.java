@@ -32,15 +32,15 @@ import org.objectweb.asm.Opcodes;
 
 import java.io.IOException;
 
-public class HasDefaultMethod extends TypeSafeDiagnosingMatcher<Class<?>> {
+public class HasConcreteMethod extends TypeSafeDiagnosingMatcher<Class<?>> {
     private final String defaultMethodName;
 
-    public HasDefaultMethod(String defaultMethodName) {
+    public HasConcreteMethod(String defaultMethodName) {
         this.defaultMethodName = defaultMethodName;
     }
 
     public static Matcher<Class<?>> called(String defaultMethodName) {
-        return new HasDefaultMethod(defaultMethodName);
+        return new HasConcreteMethod(defaultMethodName);
     }
 
     @Override

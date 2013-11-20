@@ -27,18 +27,20 @@ import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.MusicLibrary;
 import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.Song;
 import org.adoptopenjdk.lambda.tutorial.exercise5.thirdpartyplugin.LocalFilesystemMusicLibrary;
 import org.adoptopenjdk.lambda.tutorial.util.FeatureMatchers;
-import org.adoptopenjdk.lambda.tutorial.util.HasDefaultMethod;
+import org.adoptopenjdk.lambda.tutorial.util.HasConcreteMethod;
 import org.hamcrest.Matcher;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 
 /**
  * Exercise 5 - Default Methods
@@ -158,7 +160,7 @@ import static org.hamcrest.Matchers.equalTo;
  * state. Any methods which manipulate that state must also be invoked in the implementing class, and accidentally
  * "losing" that invocation is an easy way to introduce a subtle bug. Also, there is the problem between the ordering of
  * conflicting methods, that cannot be resolved by disambiguating. Default methods in Java avoid this issue, by an
- * existing virtue of interfaces, that <em>they do not contain state</em>. Because an interface cannot be constructed,
+ * existing virtue of interfaces, that <em>they do not contain state</em>. Because an interface cannot be constructed
  * with fields, there is no state available to encounter this issue. Java still has single inheritance of state,
  * through superclasses. If the contract of an interface requires state (like, e.g. <code>Iterator</code>) it will be
  * provided through the single inheritance chain.
@@ -174,8 +176,21 @@ import static org.hamcrest.Matchers.equalTo;
 @SuppressWarnings("unchecked")
 public class Exercise_5_Test {
 
+    /**
+     * Add a default method to {@link MusicLibrary} that returns every song in the library, sorted by artist. You should
+     * NOT need to add a method to any implementation of MusicLibrary.
+     * <br/>
+     * There is a helper class within MusicLibrary that can help perform sorting.
+     * <br/>
+     * Uncomment the line below that causes a compiler error until the default method is included.
+     *
+     *
+     * @see MusicLibrary#allSongs()
+     * @see MusicLibrary.SongByArtistSorter#sort(java.util.Collection)
+     *
+     */
     @Test
-    public void useDefaultMethodToReturnShuffledPlaylist() {
+    public void useDefaultMethodToReturnPlaylistOrderedByArtist() {
         MusicLibrary library = new LocalFilesystemMusicLibrary(
             new Song("A Change Is Gonna Come", "Sam Cooke"),
             new Song("Bad Moon Rising", "Creedence Clearwater Revival"),
@@ -184,16 +199,26 @@ public class Exercise_5_Test {
             new Song("Eleanor Rigby", "The Beatles")
         );
 
-        assertThat(library.shuffled(),
-            containsInAnyOrder(songCalled("Candy"), songCalled("Eleanor Rigby"), songCalled("Desolation Row"),
-                               songCalled("A Change Is Gonna Come"), songCalled("Bad Moon Rising")));
-
-        assertThat(MusicLibrary.class, HasDefaultMethod.called("shuffled"));
+//        UNCOMMENT THE LINES BELOW
+//        Until the sortedByArtist method is added to MusicLibrary, there will be a compiler error.
+//        assertThat(library.sortedByArtist(), containsSongsBy("Bob Dylan", "Creedence Clearwater Revival",
+//                                                             "Paulo Nutini", "Sam Cooke", "The Beatles"));
+        assertThat(MusicLibrary.class, HasConcreteMethod.called("sortedByArtist"));
+        assertThat(LocalFilesystemMusicLibrary.class, not(HasConcreteMethod.called("sortedByArtist")));
     }
 
 
-    private static Matcher<Song> songCalled(String title) {
-        return FeatureMatchers.from(equalTo(title), "a song called", "title", Song::getTitle);
+
+
+
+
+    private Matcher<? super List<Song>> containsSongsBy(String... artists) {
+        List<Matcher<? super Song>> songMatchers = Stream.of(artists).map(this::songBy).collect(Collectors.toList());
+        return contains(songMatchers);
+    }
+
+    private Matcher<Song> songBy(String artist) {
+        return FeatureMatchers.from(equalTo(artist), "a song by", "artist", Song::getArtist);
     }
 
 }
