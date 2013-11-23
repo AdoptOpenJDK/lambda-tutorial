@@ -33,10 +33,10 @@ import org.objectweb.asm.Opcodes;
 import java.io.IOException;
 
 public class HasConcreteMethod extends TypeSafeDiagnosingMatcher<Class<?>> {
-    private final String defaultMethodName;
+    private final String methodName;
 
     public HasConcreteMethod(String defaultMethodName) {
-        this.defaultMethodName = defaultMethodName;
+        this.methodName = defaultMethodName;
     }
 
     public static Matcher<Class<?>> called(String defaultMethodName) {
@@ -45,13 +45,8 @@ public class HasConcreteMethod extends TypeSafeDiagnosingMatcher<Class<?>> {
 
     @Override
     protected boolean matchesSafely(Class<?> item, Description mismatchDescription) {
-        if (!item.isInterface()) {
-            mismatchDescription.appendText("class ").appendValue(item).appendText(" is not an interface");
-            return false;
-        }
-
-        if (!interfaceHasDefaultMethod(defaultMethodName, item)) {
-            mismatchDescription.appendText("did not have default method named ").appendText(defaultMethodName);
+        if (!hasConcreteMethod(methodName, item)) {
+            mismatchDescription.appendText("did not have default method named ").appendText(methodName);
             return false;
         }
 
@@ -60,10 +55,10 @@ public class HasConcreteMethod extends TypeSafeDiagnosingMatcher<Class<?>> {
 
     @Override
     public void describeTo(Description description) {
-        description.appendText("an interface with a default method called " + defaultMethodName);
+        description.appendText("a type with a default method called " + methodName);
     }
 
-    private boolean interfaceHasDefaultMethod(String defaultMethodName, Class<?> clazz) {
+    private boolean hasConcreteMethod(String defaultMethodName, Class<?> clazz) {
         try {
 
             String resourceName = clazz.getName().replace(".", "/").concat(".class");

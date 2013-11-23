@@ -24,6 +24,7 @@ package org.adoptopenjdk.lambda.tutorial;
 
 
 import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.MusicLibrary;
+import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.Rating;
 import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.Song;
 import org.adoptopenjdk.lambda.tutorial.exercise5.thirdpartyplugin.LocalFilesystemMusicLibrary;
 import org.adoptopenjdk.lambda.tutorial.util.FeatureMatchers;
@@ -40,6 +41,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
 /**
@@ -83,7 +85,7 @@ import static org.hamcrest.Matchers.not;
  * Inheritance of method implementations is not new to Java. When a subclass method is invoked, the runtime finds the
  * nearest implementation available. This could be declared on the subclass itself, or on any of it's superclasses, or
  * even all the way up in <code>java.lang.Object</code>. This last case is what occurs if your class does not override
- * <code>toString</code>. However, if anywhere in the inheritance hierarchy from your class  to Object, toString is
+ * <code>toString</code>. However, if anywhere in the inheritance hierarchy from your class to Object, toString is
  * implemented, that would be executed instead of Object's toString. This behaviour is still in
  * place in JDK 8, but has been augmented to cope with default methods.
  * </p>
@@ -159,7 +161,7 @@ import static org.hamcrest.Matchers.not;
  * because it must adhere to the contract defined in the interface and/or superclass, which can include maintaining
  * state. Any methods which manipulate that state must also be invoked in the implementing class, and accidentally
  * "losing" that invocation is an easy way to introduce a subtle bug. Also, there is the problem between the ordering of
- * conflicting methods, that cannot be resolved by disambiguating. Default methods in Java avoid this issue, by an
+ * conflicting methods, that cannot be resolved by disambiguating. Default methods in Java avoid this issue, due to an
  * existing virtue of interfaces, that <em>they do not contain state</em>. Because an interface cannot be constructed
  * with fields, there is no state available to encounter this issue. Java still has single inheritance of state,
  * through superclasses. If the contract of an interface requires state (like, e.g. <code>Iterator</code>) it will be
@@ -207,8 +209,20 @@ public class Exercise_5_Test {
         assertThat(LocalFilesystemMusicLibrary.class, not(HasConcreteMethod.called("sortedByArtist")));
     }
 
+    @Test
+    public void overridesDefaultMethodInClassToProvideCustomSongRatingAlgorithm() {
+        MusicLibrary library = new CloudScrobblingMusicLibrary();
+
+        assertThat(library.ratingOf(new Song("Candy", "Paulo Nutini")), is(new Rating(78)));
+        assertThat(CloudScrobblingMusicLibrary.class, HasConcreteMethod.called("ratingOf"));
+    }
 
 
+// Exercises:
+    // override a default method in a concrete class
+    // override a default method in a sub interface
+    // choose between two conflicting default methods in a class
+    // using a hack to simulate state in interfaces
 
 
 

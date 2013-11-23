@@ -34,8 +34,6 @@ public interface MusicLibrary {
      */
     Collection<Song> allSongs();
 
-
-
     /**
      * Will sort a given collection of Songs by artist.
      */
@@ -45,4 +43,18 @@ public interface MusicLibrary {
                         .collect(toList());
         }
     }
+
+    /**
+     * Provides a rating for this song, between 1-100, inclusive.
+     *
+     * Default implementation takes a rating by normalising the play count for the given song with the play count for
+     * all songs in this MusicLibrary.
+     */
+    default Rating ratingOf(Song song) {
+        int totalPlayCount = allSongs().stream().mapToInt(this::timesPlayed).sum();
+        float score = (timesPlayed(song) / totalPlayCount) * 100.0f;
+        return new Rating(Math.round(score));
+    }
+
+    int timesPlayed(Song song);
 }

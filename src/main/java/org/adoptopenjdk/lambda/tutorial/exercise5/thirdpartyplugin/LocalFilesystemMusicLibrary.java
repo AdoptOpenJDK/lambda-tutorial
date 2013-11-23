@@ -44,4 +44,10 @@ public class LocalFilesystemMusicLibrary implements MusicLibrary {
     public Collection<Song> allSongs() {
         return allSongs;
     }
+
+    @Override
+    public int timesPlayed(Song song) {
+        // Could read a local database file to find the number of times played
+        return 4;
+    }
 }
