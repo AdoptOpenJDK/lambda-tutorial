@@ -24,7 +24,7 @@ To follow the exercises:
 
 
 ### Getting Lambda JDK
-Early access builds of JDK 8 are available [here](https://jdk8.java.net/lambda/). 
+Early access builds of JDK 8 are available [here](https://jdk8.java.net/download.html). 
  
 
 #### Lamba JDK Build Compatibility
