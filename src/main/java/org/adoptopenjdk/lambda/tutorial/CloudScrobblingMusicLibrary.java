@@ -48,7 +48,7 @@ public class CloudScrobblingMusicLibrary implements MusicLibrary {
         return cloudScrobblingService.retrieveTimesPlayedFromCloud(song);
     }
 
-    static final class CloudScrobblingService {
+    public static final class CloudScrobblingService {
 
         public int retrieveTimesPlayedFromCloud(Song song) {
             // Simulate real cloud service by returning a random number

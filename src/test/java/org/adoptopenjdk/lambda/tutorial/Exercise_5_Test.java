@@ -209,6 +209,17 @@ public class Exercise_5_Test {
         assertThat(LocalFilesystemMusicLibrary.class, not(HasConcreteMethod.called("sortedByArtist")));
     }
 
+    /**
+     * Override the default method {@link MusicLibrary#ratingOf(Song)} in {@link CloudScrobblingMusicLibrary} to return
+     * a {@link Rating} based on the rating given by a cloud scrobbling service.
+     * <br/>
+     * There is a helper method within {@link CloudScrobblingMusicLibrary.CloudScrobblingService} that can be called
+     * to retrieve the rating from the cloud.
+     *
+     * @see - Definition of Scrobbling - http://www.last.fm/help/faq?category=99
+     * @see MusicLibrary#ratingOf(Song)
+     * @see CloudScrobblingMusicLibrary.CloudScrobblingService#retrieveScrobbledRatingOf(Song)
+     */
     @Test
     public void overridesDefaultMethodInClassToProvideCustomSongRatingAlgorithm() {
         MusicLibrary library = new CloudScrobblingMusicLibrary();
@@ -219,10 +230,11 @@ public class Exercise_5_Test {
 
 
 // Exercises:
-    // override a default method in a concrete class
-    // override a default method in a sub interface
-    // choose between two conflicting default methods in a class
-    // using a hack to simulate state in interfaces
+    // [x] add a default method to an interface
+    // [x] override a default method in a concrete class
+    // [ ] override a default method in a sub interface
+    // [ ] choose between two conflicting default methods in a class
+    // [ ] using a hack to simulate state in interfaces
 
 
 
