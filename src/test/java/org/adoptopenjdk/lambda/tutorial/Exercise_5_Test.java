@@ -23,10 +23,14 @@ package org.adoptopenjdk.lambda.tutorial;
  */
 
 
+import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.StarRating;
+import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.UserRatedMusicLibrary;
+import org.adoptopenjdk.lambda.tutorial.exercise5.thirdpartyplugin.CloudScrobblingMusicLibrary;
 import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.MusicLibrary;
 import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.Rating;
 import org.adoptopenjdk.lambda.tutorial.exercise5.musicplayer.Song;
 import org.adoptopenjdk.lambda.tutorial.exercise5.thirdpartyplugin.LocalFilesystemMusicLibrary;
+import org.adoptopenjdk.lambda.tutorial.exercise5.thirdpartyplugin.UserRatedLocalFilesystemMusicLibrary;
 import org.adoptopenjdk.lambda.tutorial.util.FeatureMatchers;
 import org.adoptopenjdk.lambda.tutorial.util.HasConcreteMethod;
 import org.hamcrest.Matcher;
@@ -228,11 +232,27 @@ public class Exercise_5_Test {
         assertThat(CloudScrobblingMusicLibrary.class, HasConcreteMethod.called("ratingOf"));
     }
 
+    /**
+     * Override the default method {@link MusicLibrary#ratingOf(Song)} in {@link UserRatedMusicLibrary} to return
+     * a {@link Rating} based on the {@link StarRating} entered by the user.
+     * <br/>
+     * The method {@link UserRatedMusicLibrary#userRatingOf(Song)} provides a user-entered rating that can be converted
+     * to a Rating type with the {@link UserRatedMusicLibrary.StarRatingConverter#convert(StarRating)} method.
+     *
+     */
+    @Test
+    public void overrideDefaultMethodInInterfaceToProvideUserEnteredSongRatings() {
+        MusicLibrary library = new UserRatedLocalFilesystemMusicLibrary();
+
+        assertThat(library.ratingOf(new Song("Desolation Row", "Bob Dylan")), is(new Rating(60)));
+        assertThat(UserRatedMusicLibrary.class, HasConcreteMethod.called("ratingOf"));
+    }
+
 
 // Exercises:
     // [x] add a default method to an interface
     // [x] override a default method in a concrete class
-    // [ ] override a default method in a sub interface
+    // [x] override a default method in a sub interface
     // [ ] choose between two conflicting default methods in a class
     // [ ] using a hack to simulate state in interfaces
 
