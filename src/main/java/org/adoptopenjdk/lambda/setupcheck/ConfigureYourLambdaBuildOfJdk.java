@@ -51,6 +51,8 @@ public class ConfigureYourLambdaBuildOfJdk {
             "",
             "Until this source file compiles, you will be unable to make progress in the tutorial.");
 
-        messages.forEach(System.out::println);
+        // This is not expected to compile with JDK 7.
+        // (for pre-JDK8 solutions examples only)
+        // messages.forEach(System.out::println);
     }
 }

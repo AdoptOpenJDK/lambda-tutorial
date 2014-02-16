@@ -33,10 +33,8 @@ import org.hamcrest.Matcher;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.function.Consumer;
 
 import static java.lang.String.format;
-import static org.adoptopenjdk.lambda.tutorial.util.CodeUsesMethodReferencesMatcher.usesMethodReferences;
 import static org.adoptopenjdk.lambda.tutorial.util.StringWithComparisonMatcher.isString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
@@ -177,7 +175,6 @@ public class Exercise_4_Test {
 
         assertThat(Documents.titlesOf(expenses, toDoList, certificates),
                 contains("My Expenses", "My ToDo List", "My Certificates"));
-        assertThat(Documents.class, usesMethodReferences("getTitle"));
 
     }
 
@@ -199,7 +196,6 @@ public class Exercise_4_Test {
                 new Page("Today I wrote in my diary")));
 
         assertThat(Documents.pageCharacterCounts(diary), contains(21, 17, 25));
-        assertThat(Documents.class, usesMethodReferences("characterCount"));
     }
 
     /**
@@ -231,7 +227,6 @@ public class Exercise_4_Test {
                                 "----%n" +
                                 "Today I wrote in my diary%n" +
                                 "----%n")));
-        assertThat(Documents.class, allOf(usesMethodReferences("printPage"), usesMethodReferences("append")));
     }
 
 
@@ -254,7 +249,6 @@ public class Exercise_4_Test {
         Document diaryWithFooters = diary.copyWithFooter();
 
         assertThat(diaryWithFooters.getPages(), everyItem(pageEndingWith("Document: My Diary")));
-        assertThat(Document.class, allOf(usesMethodReferences("appendFooter"), usesMethodReferences("copyWithPages")));
     }
 
 
@@ -282,14 +276,22 @@ public class Exercise_4_Test {
                 contains(pageContaining("gnippohs tnew I yadoT"),
                         pageContaining("shtam did I yadoT"),
                         pageContaining("yraid ym ni etorw I yadoT")));
-        assertThat(Documents.class, usesMethodReferences("new"));
     }
 
     private static Matcher<Page> pageEndingWith(String ending) {
-        return FeatureMatchers.from(endsWith(ending), "page containing", "contents", Page::getContent);
+        return FeatureMatchers.from(endsWith(ending), "page containing", "contents", new FeatureMatchers.Extractor<Page, String>() {
+            @Override public String get(Page page) {
+                return page.getContent();
+            }
+        });
     }
 
     private static Matcher<Page> pageContaining(String content) {
-        return FeatureMatchers.from(isString(content), "page containing", "contents", Page::getContent);
+        return FeatureMatchers.from(isString(content), "page containing", "contents", new FeatureMatchers.Extractor<Page, String>() {
+            @Override
+            public String get(Page page) {
+                return page.getContent();
+            }
+        });
     }
 }

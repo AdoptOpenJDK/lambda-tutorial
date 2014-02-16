@@ -33,10 +33,6 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -185,7 +181,11 @@ public class Exercise_3_Test {
     // Test helpers
 
     private static Matcher<Publisher> publisherNamed(String name) {
-        return FeatureMatchers.from(equalTo(name), "is named", "name", publisher -> publisher.getName());
+        return FeatureMatchers.from(equalTo(name), "is named", "name", new FeatureMatchers.Extractor<Publisher, String>() {
+            @Override public String get(Publisher publisher) {
+                return publisher.getName();
+            }
+        });
     }
 
 }

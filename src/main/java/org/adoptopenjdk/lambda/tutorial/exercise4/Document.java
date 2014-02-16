@@ -25,10 +25,8 @@ package org.adoptopenjdk.lambda.tutorial.exercise4;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.lang.String.format;
-import static java.util.stream.Collectors.collectingAndThen;
 
 public final class Document {
     private final String title;

@@ -38,11 +38,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
 import static java.util.Arrays.binarySearch;
@@ -268,15 +263,27 @@ public class Exercise_2_Test {
     // Test helpers
 
     private static Matcher<Person> aPersonNamed(String name) {
-        return FeatureMatchers.from(is(name), "a person", "name", person -> person.getName());
+        return FeatureMatchers.from(is(name), "a person", "name", new FeatureMatchers.Extractor<Person, String>() {
+            @Override public String get(Person person) {
+                return person.getName();
+            }
+        });
     }
 
     private static Matcher<RegisteredVoter> aVoterWithId(String name) {
-        return FeatureMatchers.from(is(name), "a voter", "electorId", voter -> voter.getElectorId());
+        return FeatureMatchers.from(is(name), "a voter", "electorId", new FeatureMatchers.Extractor<RegisteredVoter, String>() {
+            @Override public String get(RegisteredVoter registeredVoter) {
+                return registeredVoter.getElectorId();
+            }
+        });
     }
 
     private static Matcher<Ballot> spoiled() {
-        return FeatureMatchers.from(equalTo(Boolean.TRUE), "a spoiled ballot", "isSpoiled", ballot -> ballot.isSpoiled());
+        return FeatureMatchers.from(equalTo(Boolean.TRUE), "a spoiled ballot", "isSpoiled", new FeatureMatchers.Extractor<Ballot, Boolean>() {
+            @Override public Boolean get(Ballot ballot) {
+                return ballot.isSpoiled();
+            }
+        });
     }
 
 }

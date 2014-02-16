@@ -165,6 +165,10 @@ public class Exercise_1_Test {
     // ----- Test helpers -----
 
     private static Matcher<Shape> hasColor(Color color) {
-        return FeatureMatchers.from(Matchers.is(color), "has color", "color", Shape::getColor);
+        return FeatureMatchers.from(Matchers.is(color), "has color", "color", new FeatureMatchers.Extractor<Shape, Color>() {
+            @Override public Color get(Shape shape) {
+                return shape.getColor();
+            }
+        });
     }
 }
