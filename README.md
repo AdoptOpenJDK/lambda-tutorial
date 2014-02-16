@@ -1,4 +1,5 @@
-## Lambda Tutorial
+## Lambda Tutorial 
+[![Build Status](https://api.travis-ci.org/AdoptOpenJDK/lambda-tutorial.png)](https://travis-ci.org/AdoptOpenJDK/lambda-tutorial)
 
 A set of exercises to teach use of Java 8 lambda syntax, and the new Streams API.
 
@@ -43,3 +44,4 @@ lambda-tutorial will try to track against the newest version available. If you f
 - [Eclipse Kepler 4.3 on Windows](https://github.com/AdoptOpenJDK/lambda-tutorial/wiki/Eclipse-Lambda-EA-Setup)
 
 <b>Note: we are hoping the instructions are not too sensitive to the OSes on which they have been performed.</b>
+
