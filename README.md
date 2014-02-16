@@ -1,5 +1,4 @@
-## Lambda Tutorial 
-[![Build Status](https://api.travis-ci.org/AdoptOpenJDK/lambda-tutorial.png)](https://travis-ci.org/AdoptOpenJDK/lambda-tutorial)
+## Lambda Tutorial [![Build Status](https://api.travis-ci.org/AdoptOpenJDK/lambda-tutorial.png?branch=solutions-prejava8)](https://travis-ci.org/AdoptOpenJDK/lambda-tutorial)
 
 A set of exercises to teach use of Java 8 lambda syntax, and the new Streams API.
 
