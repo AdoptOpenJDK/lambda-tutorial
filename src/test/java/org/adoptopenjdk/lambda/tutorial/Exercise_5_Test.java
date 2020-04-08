@@ -248,21 +248,6 @@ public class Exercise_5_Test {
         assertThat(UserRatedMusicLibrary.class, HasConcreteMethod.called("ratingOf"));
     }
 
-
-// Exercises:
-    // [x] add a default method to an interface
-    // [x] override a default method in a concrete class
-    // [x] override a default method in a sub interface
-    // [ ] choose between two conflicting default methods in a class
-    // [ ] using a hack to simulate state in interfaces
-
-
-
-    private Matcher<? super List<Song>> containsSongsBy(String... artists) {
-        List<Matcher<? super Song>> songMatchers = Stream.of(artists).map(this::songBy).collect(Collectors.toList());
-        return contains(songMatchers);
-    }
-
     private Matcher<Song> songBy(String artist) {
         return FeatureMatchers.from(equalTo(artist), "a song by", "artist", Song::getArtist);
     }
