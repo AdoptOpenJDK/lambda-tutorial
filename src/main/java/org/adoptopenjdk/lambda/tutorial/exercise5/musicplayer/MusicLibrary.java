@@ -56,5 +56,9 @@ public interface MusicLibrary {
         return new Rating(Math.round(score));
     }
 
+    default List<Song> sortedByArtist() {
+        return SongByArtistSorter.sort(allSongs());
+    }
+
     int timesPlayed(Song song);
 }

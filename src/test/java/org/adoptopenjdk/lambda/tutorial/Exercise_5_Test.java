@@ -36,6 +36,7 @@ import org.adoptopenjdk.lambda.tutorial.util.HasConcreteMethod;
 import org.hamcrest.Matcher;
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -192,7 +193,7 @@ public class Exercise_5_Test {
      *
      *
      * @see MusicLibrary#allSongs()
-     * @see MusicLibrary.SongByArtistSorter#sort(java.util.Collection)
+     * @see MusicLibrary.SongByArtistSorter#sort(Collection)
      *
      */
     @Test
@@ -207,8 +208,8 @@ public class Exercise_5_Test {
 
 //        UNCOMMENT THE LINES BELOW
 //        Until the sortedByArtist method is added to MusicLibrary, there will be a compiler error.
-//        assertThat(library.sortedByArtist(), containsSongsBy("Bob Dylan", "Creedence Clearwater Revival",
-//                                                             "Paulo Nutini", "Sam Cooke", "The Beatles"));
+        assertThat(library.sortedByArtist(), containsSongsBy("Bob Dylan", "Creedence Clearwater Revival",
+                                                             "Paulo Nutini", "Sam Cooke", "The Beatles"));
         assertThat(MusicLibrary.class, HasConcreteMethod.called("sortedByArtist"));
         assertThat(LocalFilesystemMusicLibrary.class, not(HasConcreteMethod.called("sortedByArtist")));
     }
@@ -251,5 +252,11 @@ public class Exercise_5_Test {
     private Matcher<Song> songBy(String artist) {
         return FeatureMatchers.from(equalTo(artist), "a song by", "artist", Song::getArtist);
     }
+
+    private Matcher<? super List<Song>> containsSongsBy(String... artists) {
+        List<Matcher<? super Song>> songMatchers = Stream.of(artists).map(this::songBy).collect(Collectors.toList());
+        return contains(songMatchers);
+    }
+
 
 }

@@ -82,4 +82,9 @@ public class CloudScrobblingMusicLibrary implements MusicLibrary {
                     new Song("Eleanor Rigby", "The Beatles"));
         }
     }
+
+    @Override
+    public Rating ratingOf(Song song) {
+        return new Rating(cloudScrobblingService.retrieveScrobbledRatingOf(song));
+    }
 }
