@@ -252,4 +252,8 @@ public class Exercise_5_Test {
         return FeatureMatchers.from(equalTo(artist), "a song by", "artist", Song::getArtist);
     }
 
+    private Matcher<? super List<Song>> containsSongsBy(String... artists) {
+        List<Matcher<? super Song>> songMatchers = Stream.of(artists).map(this::songBy).collect(Collectors.toList());
+        return contains(songMatchers);
+    }
 }
